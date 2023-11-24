@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">Job</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">北航求职</string>
+    <string name="title_home">主页</string>
+    <string name="title_dashboard">收藏夹</string>
+    <string name="title_notifications">通知</string>
+    <string name="title_search">搜索</string>
+    <string name="user_register">用户注册</string>
 </resources>

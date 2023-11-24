@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="77dp"
         android:layout_marginBottom="17dp"
-        android:text="用户注册"
+        android:text="@string/user_register"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toTopOf="@+id/re_text"
         app:layout_constraintEnd_toEndOf="parent"
