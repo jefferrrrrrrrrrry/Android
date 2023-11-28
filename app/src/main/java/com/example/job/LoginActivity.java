@@ -32,13 +32,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = text_account.getText().toString();;
                 String password = text_password.getText().toString();
-                if (Objects.equals(name, "123") && Objects.equals(password, "456")) { // TODO: condition
+                authenticate(name,password);
+                /*if (Objects.equals(name, "123") && Objects.equals(password, "456")) { // TODO: condition
                     Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "用户不存在或密码错误", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 
@@ -48,6 +49,36 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
-        });
+        }
+        );
+    }
+    private void authenticate(String username, String password) {
+        User user = findUserInDatabase(username); // Assume you have a method to find user
+
+        if (user == null) {
+            Toast.makeText(this, "不存在的用户名", Toast.LENGTH_SHORT).show();
+            clearInputFields();
+        } else {
+            if (user.getPassword().equals(password)) {
+                Toast.makeText(this, "已成功登录", Toast.LENGTH_SHORT).show();
+                // Add your code for successful login here
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "密码错误，请重新输入", Toast.LENGTH_SHORT).show();
+                clearInputFields();
+            }
+        }
+    }
+    private void clearInputFields() {
+        text_account.setText("");
+        text_password.setText("");
+    }
+
+    private User findUserInDatabase(String username) {
+        // Implement your method to find user in database
+        // For example:
+        // return database.findUser(username);
+        return User.getUser(username);
     }
 }

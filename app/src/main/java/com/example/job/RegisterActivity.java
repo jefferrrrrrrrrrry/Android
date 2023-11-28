@@ -32,7 +32,10 @@ public class RegisterActivity extends AppCompatActivity {
                 String account = text_account.getText().toString();
                 String password = text_password.getText().toString();
                 String password2 = text_password2.getText().toString();
-                if (account.length() < 1 || password.length() < 1) {
+                if(register(account,password,password2)) {
+                    finish();
+                }
+                /*if (account.length() < 1 || password.length() < 1) {
                     Toast.makeText(getApplicationContext(), "未填写账号/密码", Toast.LENGTH_SHORT).show();
                 } else if (false) {
                     Toast.makeText(getApplicationContext(), "该账号已存在", Toast.LENGTH_SHORT).show();
@@ -42,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                     // TODO: register
                     Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
                     finish();
-                }
+                }*/
             }
         });
 
@@ -52,5 +55,27 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public Boolean register(String username,String password,String confirm){
+        if(User.getUser(username)!=null){
+            Toast.makeText(getApplicationContext(), "该账号已存在", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!User.normaluser(username)){
+            Toast.makeText(getApplicationContext(), "用户名不能为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!User.noramlpassword(password)){
+            Toast.makeText(getApplicationContext(), "密码至少8位，并且由数字和字母组成", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!confirm.equals(password)){
+            Toast.makeText(getApplicationContext(), "两次密码不同，请重新输入", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
+        User.register(username,password);
+        //数据库里面加入user
+        return true;
     }
 }
