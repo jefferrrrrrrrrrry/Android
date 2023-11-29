@@ -57,7 +57,7 @@ public class User {
     public static void register(String username,String password){
         userlist.put(username,new User(username,password));
     }
-    public static void deleteaccount(User user){
+    public static void deleteAccount(User user){
         userlist.remove(user.getUsername());
         //System.out.println("删除"+user.getUsername());
         //System.out.println(userlist.size());
