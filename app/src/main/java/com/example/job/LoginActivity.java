@@ -1,5 +1,6 @@
 package com.example.job;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -26,6 +27,11 @@ public class LoginActivity extends AppCompatActivity {
         button_register = findViewById(R.id.login_register);;
         text_account = findViewById(R.id.login_account);
         text_password = findViewById(R.id.login_password);
+//        if(savedInstanceState!=null){
+//            text_account.setText(savedInstanceState.getString("text_account"));
+//            text_password.setText(savedInstanceState.getString("text_password"));
+//            System.out.println("6666666666666666666666");
+//        }
 
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,13 +39,6 @@ public class LoginActivity extends AppCompatActivity {
                 String name = text_account.getText().toString();;
                 String password = text_password.getText().toString();
                 authenticate(name,password);
-                /*if (Objects.equals(name, "123") && Objects.equals(password, "456")) { // TODO: condition
-                    Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "用户不存在或密码错误", Toast.LENGTH_SHORT).show();
-                }*/
             }
         });
 
@@ -52,6 +51,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         );
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("text_account",text_account.getText().toString());
+        outState.putString("text_password",text_password.getText().toString());
+    }
+
     private void authenticate(String username, String password) {
         User user = findUserInDatabase(username); // Assume you have a method to find user
 
@@ -62,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
             if (user.getPassword().equals(password)) {
                 Toast.makeText(this, "已成功登录", Toast.LENGTH_SHORT).show();
                 // Add your code for successful login here
-                System.out.println(user.getUsername());
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 Module.getInstance().setCurrent_user(user);
                 startActivity(intent);

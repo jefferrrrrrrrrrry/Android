@@ -57,7 +57,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     }
 
     private void deleteAccount() {
-        Module.getInstance().deleteaccount();
+        Module.getInstance().deleteAccount();
         finish();
         // ...
     }

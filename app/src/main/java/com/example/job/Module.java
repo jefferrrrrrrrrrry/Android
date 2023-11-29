@@ -26,8 +26,8 @@ public class Module {
     public void logout(){
         current_user = null;
     }
-    public void deleteaccount(){
-        User.deleteaccount(current_user);
+    public void deleteAccount(){
+        User.deleteAccount(current_user);
         logout();
     }
     public void setCurrent_user(User user){
