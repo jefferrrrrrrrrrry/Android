@@ -2,6 +2,8 @@ package com.example.job;
 
 import android.util.Log;
 
+import com.example.job.Reminder.ReminderManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -14,6 +16,7 @@ public class User {
     private String password;
     private static HashMap<String,User> userlist=new HashMap<>() ;
     private ArrayList<Position> favpositions = new ArrayList<>();
+    private ReminderManager reminderManager;
     static {
         userlist.put("123",new User("123","456"));
     }
@@ -68,5 +71,9 @@ public class User {
     }
     public void addfav(Position position){
         favpositions.add(position);
+    }
+
+    public ReminderManager getReminderManager() {
+        return reminderManager;
     }
 }

@@ -2,11 +2,13 @@ package com.example.job.Reminder;
 
 public class CustomReminder {
     private String content;
-    private int reminderTime;
+    private int reminderHour;
+    private int reminderMinute;
 
-    public CustomReminder(String content, int reminderTime) {
+    public CustomReminder(String content, int reminderHour, int reminderMinute) {
         this.content = content;
-        this.reminderTime = reminderTime;
+        this.reminderHour = reminderHour;
+        this.reminderMinute = reminderMinute;
     }
 
     public String getContent() {
@@ -17,11 +19,19 @@ public class CustomReminder {
         this.content = content;
     }
 
-    public int getReminderTime() {
-        return reminderTime;
+    public int getReminderHour() {
+        return reminderHour;
     }
 
-    public void setReminderTime(int reminderTime) {
-        this.reminderTime = reminderTime;
+    public void setReminderHour(int reminderHour) {
+        this.reminderHour = reminderHour;
+    }
+
+    public int getReminderMinute() {
+        return reminderMinute;
+    }
+
+    public void setReminderMinute(int reminderMinute) {
+        this.reminderMinute = reminderMinute;
     }
 }

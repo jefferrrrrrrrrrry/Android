@@ -1,16 +1,25 @@
 package com.example.job;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.TimePickerDialog;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TimePicker;
+
+import com.example.job.Reminder.CustomReminder;
+
+import org.w3c.dom.Text;
 
 public class ReminderSettingsActivity extends AppCompatActivity {
     Button buttonPickTime;
+    Button buttonConfirm;
+    Button buttonBack;
+    EditText text;
     private int selectedHour;
     private int selectedMinute;
     @Override
@@ -18,11 +27,46 @@ public class ReminderSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_settings);
         buttonPickTime = findViewById(R.id.buttonPickTime);
+        buttonConfirm = findViewById(R.id.buttonConfirm);
+        buttonBack = findViewById(R.id.buttonBack);
+        text=findViewById(R.id.reminderText);
 
         buttonPickTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showTimePickerDialog();
+            }
+        });
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User current=Module.getInstance().getUser();
+                current.getReminderManager().scheduleReminder(getApplicationContext(),new CustomReminder(text.getText().toString(),selectedHour,selectedMinute));
+                //finish();
+            }
+        });
+        buttonBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        text.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                text.setText("");
+            }
+        });
+        text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                // 当获得焦点时，清空或隐藏提示文字
+                if (hasFocus) {
+                    text.setText("");
+                } else {
+                    // 失去焦点时，恢复提示文字
+                    text.setText("输入你的提醒语");
+                }
             }
         });
     }
