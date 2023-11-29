@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notifications.NotificationsFragment">
-
+    tools:context=".ReminderSettingsActivity">
 
     <Button
-        android:id="@+id/fucking"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonPickTime"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="202dp"
-        android:text="Button"
+        android:text="选择提醒时间"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
