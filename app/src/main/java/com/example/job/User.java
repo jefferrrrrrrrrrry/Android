@@ -32,7 +32,7 @@ public class User {
         return username;
     }
     public static Boolean normaluser(String username){
-        return username.length()>=1;
+        return !username.isEmpty();
     }
     public static Boolean noramlpassword(String password){
         String regex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$";
