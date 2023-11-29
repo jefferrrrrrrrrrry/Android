@@ -2,14 +2,18 @@ package com.example.job;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class User {
+    private static int num = -1;
+    private int id;
     private String username;
     private String password;
     private static HashMap<String,User> userlist=new HashMap<>() ;
+    private ArrayList<Position> favpositions = new ArrayList<>();
     static {
         userlist.put("123",new User("123","456"));
     }
@@ -17,6 +21,7 @@ public class User {
         return userlist.get(username);
     }
     public User(String username, String password){
+        this.id = ++num;
         this.username = username;
         this.password = password;
     }
@@ -55,5 +60,11 @@ public class User {
         //System.out.println("删除"+user.getUsername());
         //System.out.println(userlist.size());
         //数据库操作
+    }
+    public void movefav(Position position){
+        favpositions.remove(position);
+    }
+    public void addfav(Position position){
+        favpositions.add(position);
     }
 }
