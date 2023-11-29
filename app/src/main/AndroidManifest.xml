@@ -13,15 +13,9 @@
         android:theme="@style/Theme.Job"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-=======
             android:name=".UpdateProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
-        <activity
->>>>>>> 1fd49dbc5c1fa38e8cebca5e707a7ce90fc4cd8c
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity

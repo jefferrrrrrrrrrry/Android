@@ -51,6 +51,8 @@ public class User {
     }
     public void update(String username,String password){
         //数据库接口来更新user
+        this.username = username;
+        this.password = password;
     }
     public static void register(String username,String password){
         userlist.put(username,new User(username,password));
