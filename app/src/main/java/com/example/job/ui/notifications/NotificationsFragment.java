@@ -34,6 +34,7 @@ public class NotificationsFragment extends Fragment {
         view.findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //getActivity().finish();
                 startActivity(new Intent(getActivity(), ReminderSettingsActivity.class));
             }
         });
