@@ -62,7 +62,9 @@ public class LoginActivity extends AppCompatActivity {
             if (user.getPassword().equals(password)) {
                 Toast.makeText(this, "已成功登录", Toast.LENGTH_SHORT).show();
                 // Add your code for successful login here
+                System.out.println(user.getUsername());
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Module.getInstance().setCurrent_user(user);
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "密码错误，请重新输入", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,7 @@
 package com.example.job;
 
+import android.util.Log;
+
 public class Module {
     // 在类内部创建一个Singleton类型的私有静态实例
     private static Module instance = null;
@@ -20,5 +22,17 @@ public class Module {
     }
     public void setUser(User user){
         current_user = user;
+    }
+    public void logout(){
+        current_user = null;
+    }
+    public void deleteaccount(){
+        User.deleteaccount(current_user);
+        logout();
+    }
+    public void setCurrent_user(User user){
+        current_user = user;
+        Log.v("LoginActivity","user");
+        System.out.println(current_user.getUsername());
     }
 }

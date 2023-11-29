@@ -1,5 +1,7 @@
 package com.example.job;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +22,9 @@ public class User {
     }
     public String getPassword(){
         return password;
+    }
+    public String getUsername(){
+        return username;
     }
     public static Boolean normaluser(String username){
         return !username.isEmpty();
@@ -44,5 +49,11 @@ public class User {
     }
     public static void register(String username,String password){
         userlist.put(username,new User(username,password));
+    }
+    public static void deleteaccount(User user){
+        userlist.remove(user.getUsername());
+        //System.out.println("删除"+user.getUsername());
+        //System.out.println(userlist.size());
+        //数据库操作
     }
 }
