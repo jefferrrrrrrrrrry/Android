@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Job"
         tools:targetApi="31">
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
+        <receiver android:name=".Reminder.ReminderBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.custom.action" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ReminderSettingsActivity"
             android:exported="false" />
@@ -38,5 +42,7 @@
             android:exported="true"
             android:label="@string/app_name" />
     </application>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
 </manifest>
