@@ -1,46 +1,71 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/password_edit_text"
-        android:layout_width="293dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="194dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="50dp"
         android:hint="密码"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="194dp" />
+        app:layout_constraintBottom_toTopOf="@+id/confirm_password_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/confirm_password_edit_text"
-        android:layout_width="293dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="103dp"
         android:hint="确认密码"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="293dp" />
+        app:layout_constraintBottom_toTopOf="@+id/update_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_edit_text" />
 
     <Button
         android:id="@+id/back_button"
-        android:layout_width="294dp"
-        android:layout_height="44dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="162dp"
         android:text="返回"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="525dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update_button" />
 
     <Button
         android:id="@+id/update_button"
-        android:layout_width="89dp"
-        android:layout_height="47dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="33dp"
         android:text="更新"
-        tools:layout_editor_absoluteX="263dp"
-        tools:layout_editor_absoluteY="445dp" />
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/delete_account_button"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_password_edit_text" />
 
     <Button
         android:id="@+id/delete_account_button"
-        android:layout_width="89dp"
+        android:layout_width="0dp"
         android:layout_height="47dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginEnd="115dp"
+        android:layout_marginBottom="34dp"
         android:text="注销"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="444dp" />
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintEnd_toStartOf="@+id/update_button"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
