@@ -1,42 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/password_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="密码"/>
+        android:layout_width="293dp"
+        android:layout_height="49dp"
+        android:hint="密码"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="194dp" />
 
     <EditText
         android:id="@+id/confirm_password_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="293dp"
+        android:layout_height="49dp"
         android:hint="确认密码"
-        android:layout_below="@id/password_edit_text"/>
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="293dp" />
 
     <Button
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="294dp"
+        android:layout_height="44dp"
         android:text="返回"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"/>
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="525dp" />
 
     <Button
         android:id="@+id/update_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="89dp"
+        android:layout_height="47dp"
         android:text="更新"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        tools:layout_editor_absoluteX="263dp"
+        tools:layout_editor_absoluteY="445dp" />
 
     <Button
         android:id="@+id/delete_account_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="89dp"
+        android:layout_height="47dp"
         android:text="注销"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"/>
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="444dp" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
