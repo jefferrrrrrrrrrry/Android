@@ -19,11 +19,18 @@ public class ReminderListActivity extends AppCompatActivity {
                 startActivity(new Intent(ReminderListActivity.this, ReminderSettingsActivity.class));
             }
         });
-       findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //getActivity().finish();
                 startActivity(new Intent(ReminderListActivity.this, ReminderCancelActivity.class));
+            }
+        });
+        findViewById(R.id.buttonBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //getActivity().finish();
+                finish();
             }
         });
     }
