@@ -17,10 +17,10 @@ public class ReminderCancelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_cancel);
-        // ArrayList<ClockItem> clocks = (ArrayList<ClockItem>) this.getIntent().getSerializableExtra("clocks");
-        findViewById(R.id.cancel_block);
-        //ClockAdapter clockAdapter = new ClockAdapter(ReminderCancelActivity.this, R.layout.clockview_item, clocks);
-        // listView.setAdapter(clockAdapter);
+        ArrayList<ClockItem> clocks = Module.getInstance().getUser().getClocks();
+        listView=findViewById(R.id.cancel_block);
+        ClockAdapter clockAdapter = new ClockAdapter(ReminderCancelActivity.this, R.layout.clockview_item, clocks);
+        listView.setAdapter(clockAdapter);
 
         findViewById(R.id.buttonCancelBack).setOnClickListener(new View.OnClickListener() {
             @Override

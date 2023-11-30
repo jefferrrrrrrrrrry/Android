@@ -62,4 +62,8 @@ public class ReminderManager {
         // 取消提醒
         // 参考：https://developer.android.com/training/scheduling/alarms
     }
+
+    public HashMap<CustomReminder, AlarmManager> getTable() {
+        return table;
+    }
 }

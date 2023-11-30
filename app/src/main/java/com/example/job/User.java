@@ -3,6 +3,7 @@ package com.example.job;
 import android.util.Log;
 
 import com.example.job.Reminder.ReminderManager;
+import com.example.job.clock.ClockItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class User {
     private static HashMap<String,User> userlist=new HashMap<>() ;
     private ArrayList<Position> favpositions = new ArrayList<>();
     private ReminderManager reminderManager=new ReminderManager();
+    private ArrayList<ClockItem> clocks = new ArrayList<>();
     static {
         userlist.put("123",new User("123","456"));
     }
@@ -75,5 +77,9 @@ public class User {
 
     public ReminderManager getReminderManager() {
         return reminderManager;
+    }
+
+    public ArrayList<ClockItem> getClocks() {
+        return clocks;
     }
 }
