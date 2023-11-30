@@ -51,21 +51,15 @@ public class ReminderSettingsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        text.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                text.setText("");
-            }
-        });
         text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 // 当获得焦点时，清空或隐藏提示文字
                 if (hasFocus) {
-                    text.setText("");
+                    text.setHint("");
                 } else {
                     // 失去焦点时，恢复提示文字
-                    text.setText("输入你的提醒语");
+                    text.setHint("输入你的提醒语");
                 }
             }
         });

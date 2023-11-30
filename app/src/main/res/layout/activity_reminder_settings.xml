@@ -42,7 +42,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="text"
-        android:text="输入你的提醒语"
+        android:hint="输入你的提醒语"
         app:layout_constraintBottom_toTopOf="@+id/buttonPickTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
