@@ -29,10 +29,6 @@ public class ReminderListActivity extends AppCompatActivity {
         clockList = findViewById(R.id.clocklist);
         clockList.setAdapter(clockAdapter);
 
-        for (CustomReminder t:current.getReminderManager().getTable().keySet()) {
-            clocks.add(new ClockItem(t.getReminderHour()+":"+t.getReminderMinute(),t.getContent()));
-        }
-
         findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,4 +53,13 @@ public class ReminderListActivity extends AppCompatActivity {
         });
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        User current=Module.getInstance().getUser();
+        ArrayList<ClockItem> clocks = current.getClocks();
+        ClockAdapter clockAdapter = new ClockAdapter(ReminderListActivity.this, R.layout.clockview_item, clocks);
+        clockList.setAdapter(clockAdapter);
+    }
+
 }
