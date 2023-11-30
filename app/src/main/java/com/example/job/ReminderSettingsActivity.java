@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.job.Reminder.CustomReminder;
 
@@ -49,18 +50,6 @@ public class ReminderSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-            }
-        });
-        text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                // 当获得焦点时，清空或隐藏提示文字
-                if (hasFocus) {
-                    text.setHint("");
-                } else {
-                    // 失去焦点时，恢复提示文字
-                    text.setHint("输入你的提醒语");
-                }
             }
         });
     }

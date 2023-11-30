@@ -1,5 +1,7 @@
 package com.example.job.Reminder;
 
+import java.util.Objects;
+
 public class CustomReminder {
     private String content;
     private int reminderHour;
@@ -33,5 +35,18 @@ public class CustomReminder {
 
     public void setReminderMinute(int reminderMinute) {
         this.reminderMinute = reminderMinute;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomReminder that = (CustomReminder) o;
+        return reminderHour == that.reminderHour && reminderMinute == that.reminderMinute && Objects.equals(content, that.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(content, reminderHour, reminderMinute);
     }
 }

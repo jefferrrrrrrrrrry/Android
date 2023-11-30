@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         button_register = findViewById(R.id.login_register);;
         text_account = findViewById(R.id.login_account);
         text_password = findViewById(R.id.login_password);
+        text_account.setText("123");
+        text_password.setText("456");
 //        if(savedInstanceState!=null){
 //            text_account.setText(savedInstanceState.getString("text_account"));
 //            text_password.setText(savedInstanceState.getString("text_password"));

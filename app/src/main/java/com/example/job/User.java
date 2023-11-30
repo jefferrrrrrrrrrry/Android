@@ -16,7 +16,7 @@ public class User {
     private String password;
     private static HashMap<String,User> userlist=new HashMap<>() ;
     private ArrayList<Position> favpositions = new ArrayList<>();
-    private ReminderManager reminderManager;
+    private ReminderManager reminderManager=new ReminderManager();
     static {
         userlist.put("123",new User("123","456"));
     }

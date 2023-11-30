@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.job.LoginActivity;
 import com.example.job.R;
+import com.example.job.ReminderListActivity;
 import com.example.job.ReminderSettingsActivity;
 import com.example.job.UpdateProfileActivity;
 import com.example.job.databinding.FragmentNotificationsBinding;
@@ -31,11 +32,11 @@ public class NotificationsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.buttonByUser).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //getActivity().finish();
-                startActivity(new Intent(getActivity(), ReminderSettingsActivity.class));
+                startActivity(new Intent(getActivity(), ReminderListActivity.class));
             }
         });
     }
