@@ -3,6 +3,7 @@ package com.example.job;
 import android.util.Log;
 
 import com.example.job.Reminder.ReminderManager;
+import com.example.job.chat.Chat;
 import com.example.job.clock.ClockItem;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class User {
     private ArrayList<Position> favpositions = new ArrayList<>();
     private ReminderManager reminderManager=new ReminderManager();
     private ArrayList<ClockItem> clocks = new ArrayList<>();
+    private ArrayList<Chat> chats = new ArrayList<>();
     static {
         userlist.put("123",new User("123","456"));
     }
@@ -29,6 +31,11 @@ public class User {
         this.id = ++num;
         this.username = username;
         this.password = password;
+
+        chats.add(new Chat("老板1", "明天来面试", "10:05"));
+        chats.add(new Chat("老板2", "v50来面试", "10:10"));
+        chats.add(new Chat("老板3", "明天来面试", "10:05"));
+        chats.add(new Chat("老板4", "v50来面试", "10:10"));
     }
     public String getPassword(){
         return password;
@@ -88,5 +95,9 @@ public class User {
             positions.add(favpositions.get(i));
         }
         return positions;
+    }
+
+    public ArrayList<Chat> getChats() {
+        return chats;
     }
 }

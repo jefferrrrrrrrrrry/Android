@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.job.LoginActivity;
+import com.example.job.Module;
 import com.example.job.R;
 import com.example.job.ReminderListActivity;
 import com.example.job.ReminderSettingsActivity;
@@ -47,15 +48,12 @@ public class NotificationsFragment extends Fragment {
         });
         // Chats
         ListView listView = view.findViewById(R.id.note_list);
-        ArrayList<Chat> chats = new ArrayList<>();
+        ArrayList<Chat> chats= Module.getInstance().getUser().getChats();
         ChatAdapter chatAdapter = new ChatAdapter(getContext(), R.layout.chat, chats);
         listView.setAdapter(chatAdapter);
 
         // TODO: add or remove chats
-        chats.add(new Chat("老板1", "明天来面试", "10:05"));
-        chats.add(new Chat("老板2", "v50来面试", "10:10"));
-        chats.add(new Chat("老板3", "明天来面试", "10:05"));
-        chats.add(new Chat("老板4", "v50来面试", "10:10"));
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

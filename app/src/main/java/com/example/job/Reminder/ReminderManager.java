@@ -30,19 +30,18 @@ public class ReminderManager {
             Toast.makeText(context ,"已成功设置，无需反复设置", Toast.LENGTH_SHORT).show();
             return;
         }
-        // Set the alarm to start at approximately 2:00 p.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, reminder.getReminderHour());
         calendar.set(Calendar.MINUTE, reminder.getReminderMinute());
+        //-------------------------------------------------------------------------------
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderBroadcastReceiver.class);
         intent.putExtra("content", reminder.getContent());
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, AlarmTable.size(), intent, PendingIntent.FLAG_IMMUTABLE);
-        // With setInexactRepeating(), you have to use one of the AlarmManager interval
-        // constants--in this case, AlarmManager.INTERVAL_DAY.
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, alarmIntent);
+        //-------------------------------------------------------------------------------
         AlarmTable.put(reminder, alarmMgr);
         IntentTable.put(reminder,alarmIntent);
         StringBuilder s=new StringBuilder();
