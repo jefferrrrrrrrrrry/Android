@@ -41,4 +41,8 @@ public class ClockAdapter extends ArrayAdapter<ClockItem> {
         info.setText(Objects.requireNonNull(getItem(position)).getInfo());
         return convertView;
     }
+
+    public void remove(int pos) {
+        data.remove(pos);
+    }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.job.clock.ClockAdapter;
@@ -27,6 +28,14 @@ public class ReminderCancelActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //getActivity().finish();
                 finish();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                clockAdapter.remove(position);
+                clockAdapter.notifyDataSetChanged();
             }
         });
     }
