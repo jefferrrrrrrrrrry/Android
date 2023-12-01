@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
                     // Handle the returned Uri
                     if (uri != null) {
                         imageView.setImageURI(uri);
+                        Module.getInstance().getUser().seturi(uri);
                     }
                 }
             });
@@ -65,6 +66,9 @@ public class HomeFragment extends Fragment {
         });
         Button button = view.findViewById(R.id.button_upload);
         imageView = view.findViewById(R.id.image_view);
+        Uri uri =Module.getInstance().getUser().geturi();
+        if(uri!=null){
+        imageView.setImageURI(uri);}
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

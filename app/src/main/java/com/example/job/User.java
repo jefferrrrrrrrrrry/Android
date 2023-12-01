@@ -1,5 +1,6 @@
 package com.example.job;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.example.job.Reminder.ReminderManager;
@@ -14,6 +15,7 @@ import java.util.regex.Pattern;
 public class User {
     private static int num = -1;
     private int id;
+    private Uri uri;
     private String username;
     private String password;
     private static HashMap<String,User> userlist=new HashMap<>() ;
@@ -99,5 +101,11 @@ public class User {
 
     public ArrayList<Chat> getChats() {
         return chats;
+    }
+    public Uri geturi(){
+        return uri;
+    }
+    public void seturi(Uri uri){
+        this.uri = uri;
     }
 }
