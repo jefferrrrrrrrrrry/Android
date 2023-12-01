@@ -38,6 +38,8 @@ public class ReminderManager {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderBroadcastReceiver.class);
         intent.putExtra("content", reminder.getContent());
+        intent.putExtra("hour", reminder.getReminderHour());
+        intent.putExtra("minute", reminder.getReminderMinute());
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, AlarmTable.size(), intent, PendingIntent.FLAG_IMMUTABLE);
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, alarmIntent);
