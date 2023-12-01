@@ -10,7 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.job.Module;
+import com.example.job.Position;
 import com.example.job.databinding.FragmentDashboardBinding;
+
+import java.util.ArrayList;
 
 public class DashboardFragment extends Fragment {
 
@@ -33,5 +37,8 @@ public class DashboardFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    public ArrayList<Position> getfav(){
+        return Module.getInstance().getUser().getFavpositions();
     }
 }

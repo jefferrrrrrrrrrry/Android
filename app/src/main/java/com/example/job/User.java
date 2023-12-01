@@ -82,4 +82,11 @@ public class User {
     public ArrayList<ClockItem> getClocks() {
         return clocks;
     }
+    public ArrayList<Position> getFavpositions(){
+        ArrayList<Position> positions = new ArrayList<>();
+        for(int i=0;i<=positions.size()-1;i++){
+            positions.add(favpositions.get(i));
+        }
+        return positions;
+    }
 }
