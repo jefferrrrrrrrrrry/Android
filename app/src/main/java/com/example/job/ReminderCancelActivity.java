@@ -16,6 +16,7 @@ import com.example.job.clock.ClockAdapter;
 import com.example.job.clock.ClockItem;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReminderCancelActivity extends AppCompatActivity {
     ListView listView;
@@ -24,6 +25,7 @@ public class ReminderCancelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_cancel);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         ArrayList<ClockItem> clocks = Module.getInstance().getUser().getClocks();
         listView=findViewById(R.id.cancel_block);
         clockAdapter = new ClockAdapter(ReminderCancelActivity.this, R.layout.clockview_item, clocks);

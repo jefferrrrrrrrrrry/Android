@@ -14,6 +14,7 @@ import com.example.job.clock.ClockItem;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ReminderListActivity extends AppCompatActivity {
     ListView clockList;
@@ -24,7 +25,7 @@ public class ReminderListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_list);
-
+        Objects.requireNonNull(getSupportActionBar()).hide();
         User current=Module.getInstance().getUser();
         ArrayList<ClockItem> clocks = current.getClocks();
         clockAdapter = new ClockAdapter(ReminderListActivity.this, R.layout.clockview_item, clocks);

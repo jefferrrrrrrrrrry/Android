@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class UpdateProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override

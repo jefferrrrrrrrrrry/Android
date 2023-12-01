@@ -18,6 +18,8 @@ import com.example.job.Reminder.CustomReminder;
 
 import org.w3c.dom.Text;
 
+import java.util.Objects;
+
 public class ReminderSettingsActivity extends AppCompatActivity {
     Button buttonPickTime;
     Button buttonConfirm;
@@ -29,6 +31,7 @@ public class ReminderSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_settings);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         buttonPickTime = findViewById(R.id.buttonPickTime);
         buttonConfirm = findViewById(R.id.buttonConfirm);
         buttonBack = findViewById(R.id.buttonBack);
