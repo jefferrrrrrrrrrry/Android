@@ -38,9 +38,9 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
         if (vibrator != null && vibrator.hasVibrator()) {
             // Android 版本兼容性判断
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
+                vibrator.vibrate(VibrationEffect.createOneShot(2000, VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
-                vibrator.vibrate(10000);
+                vibrator.vibrate(2000);
             }
         }
     }
