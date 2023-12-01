@@ -53,6 +53,8 @@ public class NotificationsFragment extends Fragment {
         // TODO: add or remove chats
         chats.add(new Chat("老板1", "明天来面试", "10:05"));
         chats.add(new Chat("老板2", "v50来面试", "10:10"));
+        chats.add(new Chat("老板3", "明天来面试", "10:05"));
+        chats.add(new Chat("老板4", "v50来面试", "10:10"));
     }
     @Override
     public void onDestroyView() {

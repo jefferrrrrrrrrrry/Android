@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 public class ReminderListActivity extends AppCompatActivity {
     ListView clockList;
+    ClockAdapter clockAdapter;
 
 
     @Override
@@ -26,7 +27,7 @@ public class ReminderListActivity extends AppCompatActivity {
 
         User current=Module.getInstance().getUser();
         ArrayList<ClockItem> clocks = current.getClocks();
-        ClockAdapter clockAdapter = new ClockAdapter(ReminderListActivity.this, R.layout.clockview_item, clocks);
+        clockAdapter = new ClockAdapter(ReminderListActivity.this, R.layout.clockview_item, clocks);
         clockList = findViewById(R.id.clocklist);
         clockList.setAdapter(clockAdapter);
 
@@ -57,10 +58,7 @@ public class ReminderListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        User current=Module.getInstance().getUser();
-        ArrayList<ClockItem> clocks = current.getClocks();
-        ClockAdapter clockAdapter = new ClockAdapter(ReminderListActivity.this, R.layout.clockview_item, clocks);
-        clockList.setAdapter(clockAdapter);
+        clockAdapter.notifyDataSetChanged();
     }
 
 }
