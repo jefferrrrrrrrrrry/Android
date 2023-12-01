@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.job.Reminder.CustomReminder;
 import com.example.job.clock.ClockAdapter;
 import com.example.job.clock.ClockItem;
 
@@ -61,7 +64,13 @@ public class ReminderCancelActivity extends AppCompatActivity {
     }
 
     private void deleteReminder(int position) {
-        Module.getInstance().getUser().getClocks().remove(position);
+        System.out.println(position);
+        User current=Module.getInstance().getUser();
+        System.out.println(current.getClocks().size());
+        ClockItem clockItem=current.getClocks().get(position);
+        String time[]=clockItem.getTime().split(":");
+        current.getReminderManager().cancelReminder(getApplicationContext(),new CustomReminder(clockItem.getInfo()
+                ,Integer.parseInt(time[0]),Integer.parseInt(time[1])),position);
         clockAdapter.notifyDataSetChanged();
     }
 }
