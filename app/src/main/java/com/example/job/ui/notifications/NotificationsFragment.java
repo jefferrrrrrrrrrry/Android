@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -55,6 +56,16 @@ public class NotificationsFragment extends Fragment {
         chats.add(new Chat("老板2", "v50来面试", "10:10"));
         chats.add(new Chat("老板3", "明天来面试", "10:05"));
         chats.add(new Chat("老板4", "v50来面试", "10:10"));
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!chats.get(i).isRead()) {
+                    chats.get(i).setRead(true);
+                    chatAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
     @Override
     public void onDestroyView() {

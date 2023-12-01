@@ -44,6 +44,11 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         name.setText(Objects.requireNonNull(getItem(position)).getName());
         content.setText(Objects.requireNonNull(getItem(position)).getContent());
         time.setText(Objects.requireNonNull(getItem(position)).getTime());
+
+        TextView isRead = convertView.findViewById(R.id.message_read);
+        if (Objects.requireNonNull(getItem(position)).isRead()) {
+            isRead.setVisibility(View.INVISIBLE);
+        }
         return convertView;
     }
 }
