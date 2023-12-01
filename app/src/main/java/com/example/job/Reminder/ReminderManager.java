@@ -36,6 +36,7 @@ public class ReminderManager {
         calendar.set(Calendar.HOUR_OF_DAY, reminder.getReminderHour());
         calendar.set(Calendar.MINUTE, reminder.getReminderMinute());
         calendar.set(Calendar.SECOND, 0);
+        System.out.println(calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND));
         //-------------------------------------------------------------------------------
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderBroadcastReceiver.class);
@@ -51,7 +52,7 @@ public class ReminderManager {
         AlarmTable.put(reminder, alarmMgr);
         IntentTable.put(reminder,alarmIntent);
         StringBuilder s=new StringBuilder();
-        System.out.println("设置成功!");
+
         s.append("设置成功!");
         s.append("每天将于"+reminder.getReminderHour()+"时"+reminder.getReminderMinute()+"分提醒您");
         Toast.makeText(context , s.toString(), Toast.LENGTH_SHORT).show();

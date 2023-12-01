@@ -3,13 +3,13 @@ package com.example.job.Reminder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import com.example.job.MainActivity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.job.R;
@@ -28,8 +28,7 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
         // 示例：手机震动
         playMusic(context);
         vibrateDevice(context);
-        Intent stopMusicIntent = new Intent(MainActivity.STOP_MUSIC_ACTION);
-        context.sendBroadcast(stopMusicIntent);
+
     }
 
     private void vibrateDevice(Context context) {
