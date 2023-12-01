@@ -3,7 +3,9 @@ package com.example.job;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
@@ -41,8 +43,9 @@ public class ReminderSettingsActivity extends AppCompatActivity {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User current=Module.getInstance().getUser();
-                current.getReminderManager().scheduleReminder(getApplicationContext(),new CustomReminder(text.getText().toString(),selectedHour,selectedMinute));
+                conFirmSetTime();
+                // User current=Module.getInstance().getUser();
+                // current.getReminderManager().scheduleReminder(getApplicationContext(),new CustomReminder(text.getText().toString(),selectedHour,selectedMinute));
                 //finish();
             }
         });
@@ -80,4 +83,21 @@ public class ReminderSettingsActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    private void conFirmSetTime() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("设置闹钟");
+        builder.setMessage("你确定要在" + selectedHour + "时" + selectedMinute + "分设置闹钟吗？");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                User current=Module.getInstance().getUser();
+                current.getReminderManager().scheduleReminder(getApplicationContext(),new CustomReminder(text.getText().toString(),selectedHour,selectedMinute));
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
+    }
 }
