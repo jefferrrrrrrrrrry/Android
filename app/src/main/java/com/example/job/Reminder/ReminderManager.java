@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.icu.util.Calendar;
+import android.os.Build;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -34,6 +35,7 @@ public class ReminderManager {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, reminder.getReminderHour());
         calendar.set(Calendar.MINUTE, reminder.getReminderMinute());
+        calendar.set(Calendar.SECOND, 0);
         //-------------------------------------------------------------------------------
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderBroadcastReceiver.class);
@@ -41,12 +43,15 @@ public class ReminderManager {
         intent.putExtra("hour", reminder.getReminderHour());
         intent.putExtra("minute", reminder.getReminderMinute());
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, AlarmTable.size(), intent, PendingIntent.FLAG_IMMUTABLE);
-        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, alarmIntent);
+
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
+
+
         //-------------------------------------------------------------------------------
         AlarmTable.put(reminder, alarmMgr);
         IntentTable.put(reminder,alarmIntent);
         StringBuilder s=new StringBuilder();
+        System.out.println("设置成功!");
         s.append("设置成功!");
         s.append("每天将于"+reminder.getReminderHour()+"时"+reminder.getReminderMinute()+"分提醒您");
         Toast.makeText(context , s.toString(), Toast.LENGTH_SHORT).show();
