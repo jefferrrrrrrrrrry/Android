@@ -23,6 +23,7 @@ public class ReminderListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_list);
+
         User current=Module.getInstance().getUser();
         ArrayList<ClockItem> clocks = current.getClocks();
         ClockAdapter clockAdapter = new ClockAdapter(ReminderListActivity.this, R.layout.clockview_item, clocks);

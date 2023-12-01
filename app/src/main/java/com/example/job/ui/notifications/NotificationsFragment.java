@@ -18,7 +18,11 @@ import com.example.job.R;
 import com.example.job.ReminderListActivity;
 import com.example.job.ReminderSettingsActivity;
 import com.example.job.UpdateProfileActivity;
+import com.example.job.chat.Chat;
+import com.example.job.chat.ChatAdapter;
 import com.example.job.databinding.FragmentNotificationsBinding;
+
+import java.util.ArrayList;
 
 public class NotificationsFragment extends Fragment {
 
@@ -28,6 +32,7 @@ public class NotificationsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notifications, container, false);
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -39,7 +44,15 @@ public class NotificationsFragment extends Fragment {
                 startActivity(new Intent(getActivity(), ReminderListActivity.class));
             }
         });
+        // Chats
+        ListView listView = view.findViewById(R.id.note_list);
+        ArrayList<Chat> chats = new ArrayList<>();
+        ChatAdapter chatAdapter = new ChatAdapter(getContext(), R.layout.chat, chats);
+        listView.setAdapter(chatAdapter);
 
+        // TODO: add or remove chats
+        chats.add(new Chat("老板1", "明天来面试", "10:05"));
+        chats.add(new Chat("老板2", "v50来面试", "10:10"));
     }
     @Override
     public void onDestroyView() {

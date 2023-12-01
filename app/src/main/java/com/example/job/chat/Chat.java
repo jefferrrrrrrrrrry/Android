@@ -3,12 +3,12 @@ package com.example.job.chat;
 public class Chat {
     String name;
     String content;
-    String tel;
+    String time;
 
-    public Chat(String name, String content, String tel) {
+    public Chat(String name, String content, String time) {
         this.name = name;
         this.content = content;
-        this.tel = tel;
+        this.time = time;
     }
 
     public String getContent() {
@@ -19,7 +19,7 @@ public class Chat {
         return name;
     }
 
-    public String getTel() {
-        return tel;
+    public String getTime() {
+        return time;
     }
 }

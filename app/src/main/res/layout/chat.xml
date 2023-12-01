@@ -35,4 +35,15 @@
         android:textColor="#666666"
         android:textSize="14sp"
         android:text="This is information" />
+
+    <TextView
+        android:id="@+id/chattime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#666666"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="40dp"
+        android:text="TextView" />
 </RelativeLayout>
