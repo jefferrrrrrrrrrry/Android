@@ -2,8 +2,6 @@ package com.example.job;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,14 +14,13 @@ import java.util.ArrayList;
 
 public class ReminderCancelActivity extends AppCompatActivity {
     ListView listView;
-    ClockAdapter clockAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_cancel);
         ArrayList<ClockItem> clocks = Module.getInstance().getUser().getClocks();
         listView=findViewById(R.id.cancel_block);
-        clockAdapter = new ClockAdapter(ReminderCancelActivity.this, R.layout.clockview_item, clocks);
+        ClockAdapter clockAdapter = new ClockAdapter(ReminderCancelActivity.this, R.layout.clockview_item, clocks);
         listView.setAdapter(clockAdapter);
 
         findViewById(R.id.buttonCancelBack).setOnClickListener(new View.OnClickListener() {
@@ -37,31 +34,9 @@ public class ReminderCancelActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showDeleteConfirmationDialog(position);
+                Module.getInstance().getUser().getClocks().remove(position);
+                clockAdapter.notifyDataSetChanged();
             }
         });
-    }
-    private void showDeleteConfirmationDialog(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to delete this reminder?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked Yes button
-                        deleteReminder(position);
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked No button
-                        // Do nothing, or add any additional functionality
-                    }
-                });
-        // Create and show the AlertDialog
-        builder.create().show();
-    }
-
-    private void deleteReminder(int position) {
-        Module.getInstance().getUser().getClocks().remove(position);
-        clockAdapter.notifyDataSetChanged();
     }
 }
