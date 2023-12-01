@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.Toast;
 
+import com.example.job.R;
+
 public class ReminderBroadcastReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "100";
     private static final int NOTIFICATION_ID = 123;
+    private MediaPlayer mediaPlayer;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -22,6 +26,7 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
         System.out.println("fuck");
 
         // 示例：手机震动
+        playMusic(context);
         vibrateDevice(context);
 
     }
@@ -33,10 +38,19 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
         if (vibrator != null && vibrator.hasVibrator()) {
             // Android 版本兼容性判断
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+                vibrator.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
-                vibrator.vibrate(1000);
+                vibrator.vibrate(10000);
             }
+        }
+    }
+    private void playMusic(Context context) {
+        // 初始化 MediaPlayer
+        mediaPlayer = MediaPlayer.create(context, R.raw.one_five); // 替换为你的音乐文件名
+
+        // 播放音乐
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
         }
     }
 }
