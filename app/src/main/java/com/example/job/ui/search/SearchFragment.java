@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.job.Job.JobAdapter;
@@ -32,6 +33,7 @@ public class SearchFragment extends Fragment {
 
     private SearchViewModel mViewModel;
     private ListView listView;
+    private EditText text;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -41,15 +43,19 @@ public class SearchFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+
         // TODO: Use the ViewModel
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        text=view.findViewById(R.id.search_box);
         view.findViewById(R.id.search_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //getActivity().finish();
-                startActivity(new Intent(getActivity(), WebViewActivity.class));
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("search_key",text.getText().toString());
+                startActivity(intent);
             }
         });
 
