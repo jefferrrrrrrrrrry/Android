@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment {
         ArrayList<JobItem> jobItems = new ArrayList<>();
         JobAdapter jobAdapter = new JobAdapter(getContext(), R.layout.job_item, jobItems);
         jobItems.add(new JobItem("Smoking", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
-
+        // change
         listView = view.findViewById(R.id.result_list);
         listView.setAdapter(jobAdapter);
     }
