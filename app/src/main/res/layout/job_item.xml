@@ -57,6 +57,18 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <Button
+        android:id="@+id/favor"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="40dp"
+        android:text="收藏"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <Button
         android:id="@+id/jump"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
@@ -67,26 +79,6 @@
         android:layout_marginEnd="152dp"
         android:text="跳转到网页"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch1"
-        android:layout_width="85dp"
-        android:layout_height="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="79dp"
-        android:layout_marginEnd="39dp"
-        android:text="收藏" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch2"
-        android:layout_width="85dp"
-        android:layout_height="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="79dp"
-        android:layout_marginEnd="39dp"
-        android:text="收藏" />
 
     <TextView
         android:id="@+id/job_address"

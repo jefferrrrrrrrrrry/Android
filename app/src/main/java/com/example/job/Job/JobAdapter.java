@@ -1,17 +1,25 @@
 package com.example.job.Job;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.job.R;
 import com.example.job.chat.Chat;
@@ -51,22 +59,25 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
         hrname.setText(Objects.requireNonNull(getItem(position)).getHrname());
         salary.setText(Objects.requireNonNull(getItem(position)).getSalary());
 
-        SwitchCompat switch1 = convertView.findViewById(R.id.switch1);
-
-        switch1.setChecked(getItem(position).isFavor());
-
-        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        Button favor = convertView.findViewById(R.id.favor);
+        favor.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) { // open
-                    getItem(position).setFavor(true);
-                    // TODO 添加收藏的操作
-                } else {
+            public void onClick(View view) {
+                if (getItem(position).isFavor()) {
                     getItem(position).setFavor(false);
-                    // TODO 删除收藏的操作
+                    favor.setText("收藏");
+                    Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+                    // TODO: 移除收藏夹
+                } else {
+                    getItem(position).setFavor(true);
+                    favor.setText("取消收藏");
+                    Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                    // TODO: 加入收藏夹
                 }
             }
         });
+
+
 
         Button button = convertView.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
