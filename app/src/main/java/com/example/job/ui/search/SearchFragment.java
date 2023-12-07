@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.job.Job.JobAdapter;
-import com.example.job.Job.JobItem;
 import com.example.job.Module;
 import com.example.job.R;
 import com.example.job.ReminderListActivity;
@@ -26,12 +24,9 @@ import com.example.job.chat.ChatAdapter;
 
 import java.util.ArrayList;
 
-import kotlinx.coroutines.Job;
-
 public class SearchFragment extends Fragment {
 
     private SearchViewModel mViewModel;
-    private ListView listView;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -52,13 +47,6 @@ public class SearchFragment extends Fragment {
                 startActivity(new Intent(getActivity(), WebViewActivity.class));
             }
         });
-
-        ArrayList<JobItem> jobItems = new ArrayList<>();
-        JobAdapter jobAdapter = new JobAdapter(getContext(), R.layout.job_item, jobItems);
-        jobItems.add(new JobItem("Smoking", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
-
-        listView = view.findViewById(R.id.result_list);
-        listView.setAdapter(jobAdapter);
     }
     @Nullable
     @Override
