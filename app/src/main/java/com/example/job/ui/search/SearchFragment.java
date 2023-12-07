@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.example.job.Job.JobAdapter;
 import com.example.job.Job.JobItem;
+import com.example.job.Job.JobsAll;
 import com.example.job.Module;
 import com.example.job.R;
 import com.example.job.ReminderListActivity;
@@ -53,9 +54,9 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        ArrayList<JobItem> jobItems = new ArrayList<>();
+        ArrayList<JobItem> jobItems = JobsAll.getAll();
         JobAdapter jobAdapter = new JobAdapter(getContext(), R.layout.job_item, jobItems);
-        jobItems.add(new JobItem("Smoking", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
+        //jobItems.add(new JobItem("Smoking", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
         // change
         listView = view.findViewById(R.id.result_list);
         listView.setAdapter(jobAdapter);

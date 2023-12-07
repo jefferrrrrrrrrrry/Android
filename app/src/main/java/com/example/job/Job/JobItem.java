@@ -1,5 +1,10 @@
 package com.example.job.Job;
 
+import com.example.job.Module;
+import com.example.job.User;
+
+import java.util.ArrayList;
+
 public class JobItem {
     private String jobname;
     private String address;
@@ -8,6 +13,7 @@ public class JobItem {
     private String link;
 
     private boolean favor;
+    private ArrayList<User> users = new ArrayList<>();
 
     public JobItem(String jobname, String address, String hrname, String salary, String link) {
         this.jobname = jobname;
@@ -51,7 +57,7 @@ public class JobItem {
     }
 
     public boolean isFavor() {
-        return favor;
+        return isfav();
     }
 
     public void setFavor(boolean favor) {
@@ -64,5 +70,18 @@ public class JobItem {
 
     public void setLink(String link) {
         this.link = link;
+    }
+    public Boolean isfav(){
+        if(users.indexOf(Module.getInstance().getUser())==-1){
+            return false;
+        }else {
+            return true;
+        }
+    }
+    public void movefav(User user){
+        users.remove(user);
+    }
+    public void addfav(User user){
+        users.add(user);
     }
 }

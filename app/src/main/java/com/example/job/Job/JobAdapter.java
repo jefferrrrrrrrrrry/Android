@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.example.job.Module;
 import com.example.job.R;
 import com.example.job.chat.Chat;
 
@@ -60,23 +61,29 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
         salary.setText(Objects.requireNonNull(getItem(position)).getSalary());
 
         Button favor = convertView.findViewById(R.id.favor);
+        if (getItem(position).isFavor()) {
+            favor.setText("取消收藏");
+        } else {
+            favor.setText("收藏");
+        }
         favor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (getItem(position).isFavor()) {
                     getItem(position).setFavor(false);
                     favor.setText("收藏");
-                    Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                    Module.getInstance().transmitfav(getItem(position));
                     // TODO: 移除收藏夹
                 } else {
                     getItem(position).setFavor(true);
                     favor.setText("取消收藏");
-                    Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
                     // TODO: 加入收藏夹
+                    Module.getInstance().transmitfav(getItem(position));
                 }
             }
         });
-
 
 
         Button button = convertView.findViewById(R.id.button);

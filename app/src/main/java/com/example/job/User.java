@@ -3,6 +3,7 @@ package com.example.job;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.job.Job.JobItem;
 import com.example.job.Reminder.ReminderManager;
 import com.example.job.chat.Chat;
 import com.example.job.clock.ClockItem;
@@ -19,7 +20,7 @@ public class User {
     private String username;
     private String password;
     private static HashMap<String,User> userlist=new HashMap<>() ;
-    private ArrayList<Position> favpositions = new ArrayList<>();
+    private ArrayList<JobItem> favjobs = new ArrayList<>();
     private ReminderManager reminderManager=new ReminderManager();
     private ArrayList<ClockItem> clocks = new ArrayList<>();
     private ArrayList<Chat> chats = new ArrayList<>();
@@ -77,11 +78,11 @@ public class User {
         //System.out.println(userlist.size());
         //数据库操作
     }
-    public void movefav(Position position){
-        favpositions.remove(position);
+    public void movefav(JobItem jobItem){
+        favjobs.remove(jobItem);
     }
-    public void addfav(Position position){
-        favpositions.add(position);
+    public void addfav(JobItem jobItem){
+        favjobs.add(jobItem);
     }
 
     public ReminderManager getReminderManager() {
@@ -91,13 +92,13 @@ public class User {
     public ArrayList<ClockItem> getClocks() {
         return clocks;
     }
-    public ArrayList<Position> getFavpositions(){
+    /*public ArrayList<Position> getFavpositions(){
         ArrayList<Position> positions = new ArrayList<>();
         for(int i=0;i<=positions.size()-1;i++){
             positions.add(favpositions.get(i));
         }
         return positions;
-    }
+    }*/
 
     public ArrayList<Chat> getChats() {
         return chats;
@@ -107,5 +108,8 @@ public class User {
     }
     public void seturi(Uri uri){
         this.uri = uri;
+    }
+    public ArrayList<JobItem> getFavjobs(){
+        return favjobs;
     }
 }

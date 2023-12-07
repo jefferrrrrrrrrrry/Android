@@ -2,6 +2,8 @@ package com.example.job;
 
 import android.util.Log;
 
+import com.example.job.Job.JobItem;
+
 import java.util.Objects;
 
 public class Module {
@@ -37,13 +39,13 @@ public class Module {
         Log.v("LoginActivity","user");
         System.out.println(current_user.getUsername());
     }
-    public void transmitfav(Position position){
-        if(position.isfav()){
-            position.movefav(current_user);
-            current_user.movefav(position);
+    public void transmitfav(JobItem jobItem){
+        if(jobItem.isfav()){
+            jobItem.movefav(current_user);
+            current_user.movefav(jobItem);
         }else {
-            position.addfav(current_user);
-            current_user.addfav(position);
+            jobItem.addfav(current_user);
+            current_user.addfav(jobItem);
         }
     }
 }

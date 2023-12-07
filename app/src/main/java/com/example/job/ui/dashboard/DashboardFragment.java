@@ -40,11 +40,11 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView listView = view.findViewById(R.id.listViewFavorites);
-        ArrayList<JobItem> jobItems = new ArrayList<>();
-        JobAdapter jobAdapter = new JobAdapter(getContext(), R.layout.job_item, jobItems);
+        ArrayList<JobItem> jobItems = Module.getInstance().getUser().getFavjobs();
+        JobAdapter jobAdapter = new JobAdapter(getContext(), R.layout.job_item,jobItems);
         listView.setAdapter(jobAdapter);
 
-        jobItems.add(new JobItem("Playing Genshin Impact", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
+        //jobItems.add(new JobItem("Playing Genshin Impact", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
         // TODO 此处更改以适应收藏夹
     }
 
@@ -53,7 +53,7 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    public ArrayList<Position> getfav(){
+   /* public ArrayList<Position> getfav(){
         return Module.getInstance().getUser().getFavpositions();
-    }
+    }*/
 }
