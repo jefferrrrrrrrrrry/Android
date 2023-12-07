@@ -31,6 +31,7 @@ import java.util.Objects;
 public class JobAdapter extends ArrayAdapter<JobItem> {
     private Context context;
     private ArrayList<JobItem> data;
+    Button favor;
 
     public JobAdapter(@NonNull Context context, int resource, @NonNull ArrayList<JobItem> data) {
         super(context, resource, data);
@@ -60,7 +61,7 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
         hrname.setText(Objects.requireNonNull(getItem(position)).getHrname());
         salary.setText(Objects.requireNonNull(getItem(position)).getSalary());
 
-        Button favor = convertView.findViewById(R.id.favor);
+        favor = convertView.findViewById(R.id.favor);
         if (getItem(position).isFavor()) {
             favor.setText("取消收藏");
         } else {

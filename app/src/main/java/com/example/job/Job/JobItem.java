@@ -5,6 +5,8 @@ import com.example.job.User;
 
 import java.util.ArrayList;
 
+import androidx.annotation.Nullable;
+
 public class JobItem {
     private String jobname;
     private String address;
@@ -83,5 +85,18 @@ public class JobItem {
     }
     public void addfav(User user){
         users.add(user);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof JobItem)) {
+            return false;
+        }
+        JobItem job = (JobItem) obj;
+        return jobname == job.jobname &&
+                address == job.address &&
+                hrname == job.hrname &&
+                salary == job.salary &&
+                link == job.link;
     }
 }
