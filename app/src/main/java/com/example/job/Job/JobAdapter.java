@@ -23,9 +23,11 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.example.job.Module;
 import com.example.job.R;
+import com.example.job.User;
 import com.example.job.chat.Chat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class JobAdapter extends ArrayAdapter<JobItem> {
@@ -92,6 +94,7 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
             @Override
             public void onClick(View view) {
                 // TODO 与boss联系
+                Module.getInstance().getUser().getChats().add(new Chat(getItem(position).getHrname(), "v50来面", "12345"));
             }
         });
 

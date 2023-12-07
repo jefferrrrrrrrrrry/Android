@@ -51,10 +51,6 @@ public class NotificationsFragment extends Fragment {
         ArrayList<Chat> chats= Module.getInstance().getUser().getChats();
         ChatAdapter chatAdapter = new ChatAdapter(getContext(), R.layout.chat, chats);
         listView.setAdapter(chatAdapter);
-
-        // TODO: add or remove chats
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -62,6 +58,7 @@ public class NotificationsFragment extends Fragment {
                     chats.get(i).setRead(true);
                     chatAdapter.notifyDataSetChanged();
                 }
+                //
             }
         });
     }
