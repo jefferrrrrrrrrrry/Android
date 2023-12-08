@@ -35,7 +35,7 @@ public class SearchFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        text=view.findViewById(R.id.search_box);
+        text = view.findViewById(R.id.search_box);
         ArrayList<JobItem> jobItems = JobsAll.getAll();
         jobAdapter = new JobAdapter(getContext(), R.layout.job_item, jobItems);
         registerBroadcastReceiver();
@@ -44,9 +44,9 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 //getActivity().finish();
                 jobAdapter.clear();
-                String search_str = text.getText().toString().replace("\n","");
+                String search_str = text.getText().toString().replace("\n", "");
                 search_str = search_str.equals("") ? "java" : search_str;
-                Intent intent=new Intent(getActivity(), JobSearchService.class);
+                Intent intent = new Intent(getActivity(), JobSearchService.class);
                 intent.putExtra("search_key", search_str);
                 getActivity().startService(intent);
                 Intent intent2 = new Intent(getActivity(), SearchService.class);
@@ -67,12 +67,14 @@ public class SearchFragment extends Fragment {
         listView = view.findViewById(R.id.result_list);
         listView.setAdapter(jobAdapter);
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
+
     private void registerBroadcastReceiver() {
         // 创建广播接收器
         broadcastReceiver = new BroadcastReceiver() {
@@ -100,6 +102,7 @@ public class SearchFragment extends Fragment {
             getActivity().unregisterReceiver(broadcastReceiver);
         }
     }
+
     public static JobAdapter getJobAdapter() {
         return jobAdapter;
     }
