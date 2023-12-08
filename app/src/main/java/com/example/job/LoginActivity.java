@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,11 +29,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         button_login = findViewById(R.id.login_login);
         button_register = findViewById(R.id.login_register);
-        ;
         text_account = findViewById(R.id.login_account);
         text_password = findViewById(R.id.login_password);
         initializeDataIfNeeded();
         User.loadUserList(this);
+        HashMap<String,String> user = new HashMap<>();
+        user.put("123","456");
+        FileUtils.writeHashMapToFile(this,"user_data.json",user);
 //        if(savedInstanceState!=null){
 //            text_account.setText(savedInstanceState.getString("text_account"));
 //            text_password.setText(savedInstanceState.getString("text_password"));
