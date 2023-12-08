@@ -109,7 +109,6 @@ public class JobSearchService extends Service {
                     String company = jsonObject.getString("company");
                     String hrname = jsonObject.getString("hrname");
                     String href = jsonObject.getString("href");
-                    String url= webView.getUrl();
                     JobsAll.getAll().add(new JobItem(title,company,hrname,salary,"https://www.zhipin.com"+href));
                 }
             } catch (JSONException e) {
