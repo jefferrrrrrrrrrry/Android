@@ -1,7 +1,5 @@
 package com.example.job.ui.search;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,28 +21,18 @@ import com.example.job.Job.JobItem;
 import com.example.job.Job.JobsAll;
 import com.example.job.JobSearchService;
 import com.example.job.R;
+import com.example.job.SearchService;
 
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
-    private SearchViewModel mViewModel;
     private ListView listView;
     private EditText text;
     private BroadcastReceiver broadcastReceiver;
     private static JobAdapter jobAdapter;
 
-    public static SearchFragment newInstance() {
-        return new SearchFragment();
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
-
-        // TODO: Use the ViewModel
-    }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         text=view.findViewById(R.id.search_box);
@@ -55,10 +43,27 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //getActivity().finish();
+                jobAdapter.clear();
+                String search_str = text.getText().toString().replace("\n","");
+                search_str = search_str.equals("") ? "java" : search_str;
                 Intent intent=new Intent(getActivity(), JobSearchService.class);
                 intent.putExtra("search_key",text.getText().toString());
                 getActivity().startService(intent);
-
+//                intent.putExtra("search_key", search_str);
+//                intent.putExtra("mode", 1);
+//                getActivity().startService(intent);
+                Intent intent2 = new Intent(getActivity(), SearchService.class);
+                intent2.putExtra("search_key", search_str);
+                intent2.putExtra("mode", 2);
+                //getActivity().startService(intent2);
+                Intent intent3 = new Intent(getActivity(), SearchService.class);
+                intent3.putExtra("search_key", search_str);
+                intent3.putExtra("mode", 3);
+                //getActivity().startService(intent3);
+                Intent intent4 = new Intent(getActivity(), SearchService.class);
+                intent4.putExtra("search_key", search_str);
+                intent4.putExtra("mode", 4);
+                //getActivity().startService(intent4);
             }
         });
         // change

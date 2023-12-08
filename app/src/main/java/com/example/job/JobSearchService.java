@@ -99,7 +99,6 @@ public class JobSearchService extends Service {
             try {
                 value=value.substring(1,value.length()-1).replaceAll("\\\\","");
                 JSONArray jsonArray=new JSONArray(value);
-                JobsAll.getAll().clear();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
