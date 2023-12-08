@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,6 @@ import com.example.job.User;
 import com.example.job.chat.Chat;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Objects;
 
 public class JobAdapter extends ArrayAdapter<JobItem> {
@@ -95,7 +95,12 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Module.getInstance().getUser().getChats().add(new Chat(getItem(position).getHrname(), "v50来面", "12345"));
+                android.icu.util.Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                String time=(calendar.get(Calendar.HOUR_OF_DAY)<10?"0":"")+calendar.get(Calendar.HOUR_OF_DAY)+":"+
+                        (calendar.get(Calendar.MINUTE)<10?"0":"")+calendar.get(Calendar.MINUTE)+ ":"+
+                        (calendar.get(Calendar.SECOND)<10?"0":"")+calendar.get(Calendar.SECOND);
+                Module.getInstance().getUser().getChats().add(new Chat(getItem(position).getHrname(), "v50来面", time));
             }
         });
 
