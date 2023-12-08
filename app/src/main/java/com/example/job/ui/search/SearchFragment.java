@@ -22,6 +22,7 @@ import com.example.job.Job.JobsAll;
 import com.example.job.Module;
 import com.example.job.R;
 import com.example.job.ReminderListActivity;
+import com.example.job.SearchService;
 import com.example.job.WebViewActivity;
 import com.example.job.chat.Chat;
 import com.example.job.chat.ChatAdapter;
@@ -57,14 +58,13 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //getActivity().finish();
-                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                Intent intent= new Intent(getActivity(), SearchService.class);
                 intent.putExtra("search_key",text.getText().toString());
-                startActivity(intent);
+                getActivity().startService(intent);
             }
         });
 
-
-        jobItems.add(new JobItem("Smoking", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
+        //jobItems.add(new JobItem("Smoking", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
         // change
         listView = view.findViewById(R.id.result_list);
         listView.setAdapter(jobAdapter);

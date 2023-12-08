@@ -1,10 +1,12 @@
 package com.example.job;
-import android.os.Bundle;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.job.Job.JobAdapter;
 import com.example.job.Job.JobItem;
@@ -17,18 +19,13 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 
-public class WebViewActivity extends AppCompatActivity {
-
+public class SearchService extends Service {
     private WebView webView;
     private boolean hasPerformedSearch = false;
     private boolean hasGetInfo = false;
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_view);
-
-        webView = findViewById(R.id.webView);
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        webView = new WebView(this);
         System.out.println(webView.getSettings().getUserAgentString());
 
         // 启用 JavaScript 执行
@@ -44,7 +41,7 @@ public class WebViewActivity extends AppCompatActivity {
                 System.out.println("666");
                 if (!hasPerformedSearch) {
                     getWebViewHtmlContent();
-                    String key_word = getIntent().getExtras().get("search_key").toString();
+                    String key_word = intent.getExtras().get("search_key").toString();
                     System.out.println(key_word);
                     // Now that the page has finished loading for the first time, perform the search
                     hasPerformedSearch = true;
@@ -53,8 +50,6 @@ public class WebViewActivity extends AppCompatActivity {
                 } else {
                     hasGetInfo = true;
                     getWebViewHtmlContent();
-                    // Now that the page has finished loading for the first time, perform the search
-
 
                 }
             }
@@ -62,6 +57,8 @@ public class WebViewActivity extends AppCompatActivity {
 
         // 加载网页
         webView.loadUrl("https://www.zhipin.com/beijing/");
+
+        return START_NOT_STICKY;
     }
 
     private void getWebViewHtmlContent() {
@@ -116,10 +113,11 @@ public class WebViewActivity extends AppCompatActivity {
                             JobAdapter jobAdapter = SearchFragment.getJobAdapter();
                             for (int i = 0; i < size; i++) {
                                 JobItem p = new JobItem(titles[i], workplaces[i] + " " + comps[i], hr[i],
-                                        salaries[i], "https://www.zhipin.com/beijing/" + hreF[i]);
+                                        salaries[i], "https://www.zhipin.com/beijing" + hreF[i]);
                                 jobAdapter.add(p);
                             }
                             jobAdapter.notifyDataSetChanged();
+                            stopSelf();
                         }
                     }
                 });
@@ -134,4 +132,9 @@ public class WebViewActivity extends AppCompatActivity {
         webView.evaluateJavascript(clickSearchButtonScript, null);
     }
 
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
     }
+}

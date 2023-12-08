@@ -3,9 +3,11 @@ package com.example.job.Job;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +104,9 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
             @Override
             public void onClick(View view) {
                 String link = getItem(position).getLink();
-                // TODO 跳转到该网页
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(link));
+                getContext().startActivity(intent);
             }
         });
         return convertView;
