@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -17,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     Button button_register;
     EditText text_account;
     EditText text_password;
+    private boolean isFirstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +27,12 @@ public class LoginActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_login);
         button_login = findViewById(R.id.login_login);
-        button_register = findViewById(R.id.login_register);;
+        button_register = findViewById(R.id.login_register);
+        ;
         text_account = findViewById(R.id.login_account);
         text_password = findViewById(R.id.login_password);
-        text_account.setText("123");
-        text_password.setText("456");
+        initializeDataIfNeeded();
+        User.loadUserList(this);
 //        if(savedInstanceState!=null){
 //            text_account.setText(savedInstanceState.getString("text_account"));
 //            text_password.setText(savedInstanceState.getString("text_password"));
@@ -38,27 +42,28 @@ public class LoginActivity extends AppCompatActivity {
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = text_account.getText().toString();;
+                String name = text_account.getText().toString();
+                ;
                 String password = text_password.getText().toString();
-                authenticate(name,password);
+                authenticate(name, password);
             }
         });
 
         button_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        }
+                                               @Override
+                                               public void onClick(View view) {
+                                                   Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                                                   startActivity(intent);
+                                               }
+                                           }
         );
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("text_account",text_account.getText().toString());
-        outState.putString("text_password",text_password.getText().toString());
+        outState.putString("text_account", text_account.getText().toString());
+        outState.putString("text_password", text_password.getText().toString());
     }
 
     private void authenticate(String username, String password) {
@@ -80,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
     private void clearInputFields() {
         text_account.setText("");
         text_password.setText("");
@@ -90,5 +96,31 @@ public class LoginActivity extends AppCompatActivity {
         // For example:
         // return database.findUser(username);
         return User.getUser(username);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isFirstTime) {
+            isFirstTime = false;
+        } else
+        // 在这里编写你自己的代码
+        {
+            text_account.setText("");
+            text_password.setText("");
+        }// 例如，刷新UI，重新开始动画，恢复暂停的任务等
+    }
+
+    private void initializeDataIfNeeded() {
+        String fileName = "user_data.json";
+        File file = new File(getFilesDir(), fileName);
+        if (!file.exists()) {
+            try {
+                FileUtils.copyAssetToInternalStorage(this, fileName, fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle the error
+            }
+        }
     }
 }

@@ -52,6 +52,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         }else {
             User current = Module.getInstance().getUser();
             current.update(current.getUsername(),password);
+            User.saveUserList(this);
             Toast.makeText(getApplicationContext(), "成功更新", Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -61,6 +62,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private void deleteAccount() {
         Module.getInstance().deleteAccount();
+        User.saveUserList(this);
         finish();
         // ...
     }
