@@ -30,7 +30,7 @@ public class User implements Serializable {
     private ArrayList<ClockItem> clocks = new ArrayList<>();
     private ArrayList<Chat> chats = new ArrayList<>();
     static {
-        userlist.put("123",new User("123","456"));
+        //userlist.put("123",new User("123","456"));
     }
     public static User getUser(String username){
         return userlist.get(username);
@@ -126,27 +126,19 @@ public class User implements Serializable {
         return favjobs;
     }
     public static void saveUserList(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        Gson gson = new Gson();
-        String json = gson.toJson(userlist);
-
-        editor.putString("userlist", json);
-        editor.apply();
+        HashMap<String,String> user2word=new HashMap<>();
+        for(String username:userlist.keySet()){
+            user2word.put(username,userlist.get(username).getPassword());
+        }
+        FileUtils.writeHashMapToFile(context,"user_data.json",user2word);
     }
 
     // Load userlist from SharedPreferences
     public static void loadUserList(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("userlist", "");
-
-        Type type = new TypeToken<HashMap<String, User>>() {}.getType();
-        userlist = gson.fromJson(json, type);
-
-        if (userlist == null) {
-            userlist = new HashMap<>();
+        HashMap<String,String> user2word= FileUtils.readHashMapFromFile(context, "user_data.json");
+        userlist.clear();
+        for(String username:user2word.keySet()){
+            userlist.put(username,new User(username,user2word.get(username)));
         }
     }
 }

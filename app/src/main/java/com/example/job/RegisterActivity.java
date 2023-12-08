@@ -66,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
         User.register(username, password);
+        User.saveUserList(this);
         //数据库里面加入user
         return true;
     }
