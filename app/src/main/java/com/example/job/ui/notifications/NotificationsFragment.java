@@ -39,13 +39,7 @@ public class NotificationsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.buttonByUser).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //getActivity().finish();
-                startActivity(new Intent(getActivity(), ReminderListActivity.class));
-            }
-        });
+
         // Chats
         ListView listView = view.findViewById(R.id.note_list);
         ArrayList<Chat> chats= Module.getInstance().getUser().getChats();
@@ -61,6 +55,23 @@ public class NotificationsFragment extends Fragment {
                 //
             }
         });
+
+        view.findViewById(R.id.buttonByUser).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //getActivity().finish();
+                startActivity(new Intent(getActivity(), ReminderListActivity.class));
+            }
+        });
+
+        view.findViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Module.getInstance().getUser().clearChats();
+                chatAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
     @Override
     public void onDestroyView() {

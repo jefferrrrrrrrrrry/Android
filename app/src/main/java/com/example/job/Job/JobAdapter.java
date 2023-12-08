@@ -1,6 +1,7 @@
 package com.example.job.Job;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.widget.Toast.LENGTH_SHORT;
 
 import android.content.Context;
 import android.content.Intent;
@@ -60,7 +61,13 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
         TextView hrname = convertView.findViewById(R.id.job_hrname);
         TextView salary = convertView.findViewById(R.id.job_salary);
 
-        jobname.setText(Objects.requireNonNull(getItem(position)).getJobname());
+        String job = null;
+        if (Objects.requireNonNull(getItem(position)).getJobname().length() > 12) {
+            job = Objects.requireNonNull(getItem(position)).getJobname().substring(0, 11) + "...";
+        } else {
+            job = Objects.requireNonNull(getItem(position)).getJobname();
+        }
+        jobname.setText(job);
         address.setText(Objects.requireNonNull(getItem(position)).getAddress());
         hrname.setText(Objects.requireNonNull(getItem(position)).getHrname());
         salary.setText(Objects.requireNonNull(getItem(position)).getSalary());
@@ -77,13 +84,15 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
                 if (getItem(position).isFavor()) {
                     getItem(position).setFavor(false);
                     favor.setText("收藏");
-                    Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "取消收藏成功", LENGTH_SHORT).show();
                     Module.getInstance().transmitfav(getItem(position));
                     // TODO: 移除收藏夹
                 } else {
                     getItem(position).setFavor(true);
                     favor.setText("取消收藏");
-                    Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "收藏成功", LENGTH_SHORT).show();
                     // TODO: 加入收藏夹
                     Module.getInstance().transmitfav(getItem(position));
                 }
@@ -100,7 +109,10 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
                 String time=(calendar.get(Calendar.HOUR_OF_DAY)<10?"0":"")+calendar.get(Calendar.HOUR_OF_DAY)+":"+
                         (calendar.get(Calendar.MINUTE)<10?"0":"")+calendar.get(Calendar.MINUTE)+ ":"+
                         (calendar.get(Calendar.SECOND)<10?"0":"")+calendar.get(Calendar.SECOND);
-                Module.getInstance().getUser().getChats().add(new Chat(getItem(position).getHrname(), "v50来面", time));
+                boolean succ = Module.getInstance().getUser().addChat(new Chat(getItem(position).getHrname(), "v50来面", time));
+                if (!succ) {
+                    Toast.makeText(getContext(), "已与HR联系", LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -110,7 +122,7 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
             public void onClick(View view) {
                 String link = getItem(position).getLink();
                 if (link == null) {
-                    Toast.makeText(getContext(), "该网站未提供链接", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "该网站未提供链接", LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(link));

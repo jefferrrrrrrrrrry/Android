@@ -2,6 +2,7 @@ package com.example.job;
 
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.job.Job.JobItem;
 import com.example.job.Reminder.ReminderManager;
@@ -35,10 +36,10 @@ public class User {
         this.username = username;
         this.password = password;
 
-        chats.add(new Chat("老板1", "明天来面试", "10:05"));
-        chats.add(new Chat("老板2", "v50来面试", "10:10"));
-        chats.add(new Chat("老板3", "明天来面试", "10:05"));
-        chats.add(new Chat("老板4", "v50来面试", "10:10"));
+//        chats.add(new Chat("老板1", "明天来面试", "10:05"));
+//        chats.add(new Chat("老板2", "v50来面试", "10:10"));
+//        chats.add(new Chat("老板3", "明天来面试", "10:05"));
+//        chats.add(new Chat("老板4", "v50来面试", "10:10"));
     }
     public String getPassword(){
         return password;
@@ -102,6 +103,19 @@ public class User {
 
     public ArrayList<Chat> getChats() {
         return chats;
+    }
+
+    public boolean addChat(Chat chat) {
+        if (chats.contains(chat)) {
+            return false;
+        } else {
+            chats.add(chat);
+            return true;
+        }
+    }
+
+    public void clearChats() {
+        chats.clear();
     }
     public Uri geturi(){
         return uri;

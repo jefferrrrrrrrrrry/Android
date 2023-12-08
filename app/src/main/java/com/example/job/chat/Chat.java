@@ -1,5 +1,7 @@
 package com.example.job.chat;
 
+import java.util.Objects;
+
 public class Chat {
     String name;
     String content;
@@ -31,5 +33,18 @@ public class Chat {
 
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chat chat = (Chat) o;
+        return Objects.equals(name, chat.name) && Objects.equals(content, chat.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, content);
     }
 }
