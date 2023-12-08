@@ -43,6 +43,7 @@ public class ReminderManager {
         intent.putExtra("content", reminder.getContent());
         intent.putExtra("hour", reminder.getReminderHour());
         intent.putExtra("minute", reminder.getReminderMinute());
+        intent.setAction("com.example.job.REMINDER_BROADCAST");
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, AlarmTable.size(), intent, PendingIntent.FLAG_IMMUTABLE);
 
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
@@ -58,18 +59,14 @@ public class ReminderManager {
         Toast.makeText(context , s.toString(), Toast.LENGTH_SHORT).show();
         Module.getInstance().getUser().getClocks().add(new ClockItem((reminder.getReminderHour()>=10?"":"0")+reminder.getReminderHour()+":"+
                 (reminder.getReminderMinute()>=10?"":"0")+reminder.getReminderMinute(),reminder.getContent()));
-
-        // 使用AlarmManager设置定时提醒
-        // 参考：https://developer.android.com/training/scheduling/alarms
     }
 
     public void cancelReminder(Context context, CustomReminder reminder,int position) {
         if (AlarmTable.containsKey(reminder) && AlarmTable.get(reminder) != null) {
             AlarmTable.get(reminder).cancel(IntentTable.get(reminder));
             AlarmTable.remove(reminder);
+            IntentTable.remove(reminder);
             Module.getInstance().getUser().getClocks().remove(position);
         }
-        // 取消提醒
-        // 参考：https://developer.android.com/training/scheduling/alarms
     }
 }

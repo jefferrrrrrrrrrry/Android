@@ -3,9 +3,6 @@ package com.example.job.Reminder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
@@ -15,20 +12,19 @@ import android.widget.Toast;
 import com.example.job.R;
 
 public class ReminderBroadcastReceiver extends BroadcastReceiver {
-    private static final String CHANNEL_ID = "100";
-    private static final int NOTIFICATION_ID = 123;
     private MediaPlayer mediaPlayer;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // 在这里处理定时器触发的操作
-        Toast.makeText(context, (String)intent.getExtras().get("content"), Toast.LENGTH_SHORT).show();
-        System.out.println("fuck");
+        if (intent.getAction() != null && intent.getAction().equals("com.example.job.REMINDER_BROADCAST")) {
+            // 在这里处理定时器触发的操作
+            Toast.makeText(context, (String)intent.getExtras().get("content"), Toast.LENGTH_SHORT).show();
+            System.out.println("fuck");
 
-        // 示例：手机震动
-        playMusic(context);
-        vibrateDevice(context);
-
+            // 示例：手机震动
+            playMusic(context);
+            vibrateDevice(context);
+        }
     }
 
     private void vibrateDevice(Context context) {
@@ -46,11 +42,12 @@ public class ReminderBroadcastReceiver extends BroadcastReceiver {
     }
     private void playMusic(Context context) {
         // 初始化 MediaPlayer
-        mediaPlayer = MediaPlayer.create(context, R.raw.one_five); // 替换为你的音乐文件名
+        mediaPlayer = MediaPlayer.create(context, R.raw.one_five);
 
         // 播放音乐
         if (mediaPlayer != null) {
             mediaPlayer.start();
         }
     }
+
 }
