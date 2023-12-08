@@ -1,20 +1,24 @@
 package com.example.job;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.job.Job.JobItem;
 import com.example.job.Reminder.ReminderManager;
 import com.example.job.chat.Chat;
 import com.example.job.clock.ClockItem;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class User {
+public class User implements Serializable {
     private static int num = -1;
     private int id;
     private Uri uri;
@@ -35,11 +39,6 @@ public class User {
         this.id = ++num;
         this.username = username;
         this.password = password;
-
-//        chats.add(new Chat("老板1", "明天来面试", "10:05"));
-//        chats.add(new Chat("老板2", "v50来面试", "10:10"));
-//        chats.add(new Chat("老板3", "明天来面试", "10:05"));
-//        chats.add(new Chat("老板4", "v50来面试", "10:10"));
     }
     public String getPassword(){
         return password;
@@ -125,5 +124,29 @@ public class User {
     }
     public ArrayList<JobItem> getFavjobs(){
         return favjobs;
+    }
+    public static void saveUserList(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(userlist);
+
+        editor.putString("userlist", json);
+        editor.apply();
+    }
+
+    // Load userlist from SharedPreferences
+    public static void loadUserList(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("userlist", "");
+
+        Type type = new TypeToken<HashMap<String, User>>() {}.getType();
+        userlist = gson.fromJson(json, type);
+
+        if (userlist == null) {
+            userlist = new HashMap<>();
+        }
     }
 }
