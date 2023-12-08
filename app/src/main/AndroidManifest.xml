@@ -24,9 +24,13 @@
         android:theme="@style/Theme.Job"
         tools:targetApi="31">
         <service
+            android:name=".SearchService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
             android:name=".JobSearchService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />

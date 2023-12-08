@@ -31,8 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         ;
         text_account = findViewById(R.id.login_account);
         text_password = findViewById(R.id.login_password);
-        text_account.setText("123");
-        text_password.setText("456");
         initializeDataIfNeeded();
         User.loadUserList(this);
 //        if(savedInstanceState!=null){
