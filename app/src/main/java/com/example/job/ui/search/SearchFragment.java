@@ -47,7 +47,7 @@ public class SearchFragment extends Fragment {
                 String search_str = text.getText().toString().replace("\n","");
                 search_str = search_str.equals("") ? "java" : search_str;
                 Intent intent=new Intent(getActivity(), JobSearchService.class);
-                intent.putExtra("search_key",text.getText().toString());
+                intent.putExtra("search_key", search_str);
                 getActivity().startService(intent);
                 Intent intent2 = new Intent(getActivity(), SearchService.class);
                 intent2.putExtra("search_key", search_str);
