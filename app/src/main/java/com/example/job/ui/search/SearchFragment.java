@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -23,16 +22,9 @@ import com.example.job.Job.JobAdapter;
 import com.example.job.Job.JobItem;
 import com.example.job.Job.JobsAll;
 import com.example.job.JobSearchService;
-import com.example.job.Module;
 import com.example.job.R;
-import com.example.job.ReminderListActivity;
-import com.example.job.WebViewActivity;
-import com.example.job.chat.Chat;
-import com.example.job.chat.ChatAdapter;
 
 import java.util.ArrayList;
-
-import kotlinx.coroutines.Job;
 
 public class SearchFragment extends Fragment {
 

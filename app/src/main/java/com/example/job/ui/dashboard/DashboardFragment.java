@@ -1,12 +1,10 @@
 package com.example.job.ui.dashboard;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.job.Job.JobAdapter;
 import com.example.job.Job.JobItem;
 import com.example.job.Module;
-import com.example.job.Position;
 import com.example.job.R;
-import com.example.job.WebViewActivity;
 import com.example.job.databinding.FragmentDashboardBinding;
 
 import java.util.ArrayList;
