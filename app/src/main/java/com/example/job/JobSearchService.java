@@ -1,14 +1,12 @@
 package com.example.job;
-import android.os.Bundle;
-import android.util.Log;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
 import android.view.View;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.job.Job.JobItem;
 import com.example.job.Job.JobsAll;
@@ -17,53 +15,53 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-public class WebViewActivity extends AppCompatActivity {
-
+public class JobSearchService extends Service {
     private WebView webView;
     private JSONArray jsonArray;
     private boolean hasPerformedSearch = false;
-    private boolean hasGetInfo = false;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_view);
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
-        webView = findViewById(R.id.webView);
-        System.out.println(webView.getSettings().getUserAgentString());
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        // 在这里执行后台任务
+        performBackgroundTask(intent.getStringExtra("search_key"));
+        return START_NOT_STICKY;
+    }
 
-        // 启用 JavaScript 执行
+    private void performBackgroundTask(String searchKey) {
+        // 执行后台任务，例如抓取网页数据
+        webView = new WebView(this);
         webView.setVisibility(View.GONE);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.getSettings().setDomStorageEnabled(true);
-        // 设置 WebViewClient 以处理页面加载和在 WebView 内部打开链接
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 // 在页面加载完成后获取整个 HTML 内容
-
-                System.out.println("666");
                 if (!hasPerformedSearch) {
-                    String key_word = getIntent().getExtras().get("search_key").toString();
+                    String key_word = searchKey;
                     System.out.println(key_word);
-                    // Now that the page has finished loading for the first time, perform the search
                     hasPerformedSearch = true;
                     performSearch(key_word);
-                    // Update the flag to ensure the search is not performed again
-
                 }else {
-                    hasGetInfo = true;
                     extractAndProcessData();
-
+                    Intent broadcastIntent = new Intent("com.example.job.JOB_SEARCH_COMPLETE");
+                    sendBroadcast(broadcastIntent);
+                    // 停止 Service
+                    stopSelf();
                 }
             }
         });
         // 加载网页
         webView.loadUrl("https://www.zhipin.com/beijing/");
     }
+
     private void performSearch(String searchKey) {
         // Inject JavaScript to fill in the search box
         String fillSearchBoxScript = "document.querySelector('.ipt-search').value = \'"+searchKey+"\';";
@@ -73,29 +71,30 @@ public class WebViewActivity extends AppCompatActivity {
         String clickSearchButtonScript = "document.querySelector('.btn.btn-search').click();";
         webView.evaluateJavascript(clickSearchButtonScript, null);
     }
+
     private void extractAndProcessData() {
 
         webView.evaluateJavascript("(function() { \n"+
                 "const jobElements = document.querySelectorAll('.item');\n"+
                 "const jobsArray = [];\n" +
-                        "\n" +
-                        "// 遍历所有元素\n" +
-                        "jobElements.forEach((jobElement, index) => {\n" +
-                        "    const title = jobElement.querySelector('.title-text').textContent.trim();\n" +
-                        "    const salary = jobElement.querySelector('.salary').textContent.trim();\n" +
-                        "    const company = jobElement.querySelector('.company').textContent.trim();\n" +
-                        "    const hrname = jobElement.querySelector('.user-wrap').querySelector('.name').textContent.trim();\n" +
-                        "    const href = jobElement.querySelector('a').getAttribute('href');\n"+
-                        "    // Extracting labels\n" +
-                        "    const jobInfo = {\n" +
-                        "        title,\n" +
-                        "        salary,\n" +
-                        "        company,\n" +
-                        "        hrname,\n" +
-                        "        href,\n" +
-                        "    };\n" +
-                        "    jobsArray.push(jobInfo);\n" +
-                        "});" +
+                "\n" +
+                "// 遍历所有元素\n" +
+                "jobElements.forEach((jobElement, index) => {\n" +
+                "    const title = jobElement.querySelector('.title-text').textContent.trim();\n" +
+                "    const salary = jobElement.querySelector('.salary').textContent.trim();\n" +
+                "    const company = jobElement.querySelector('.company').textContent.trim();\n" +
+                "    const hrname = jobElement.querySelector('.user-wrap').querySelector('.name').textContent.trim();\n" +
+                "    const href = jobElement.querySelector('a').getAttribute('href');\n"+
+                "    // Extracting labels\n" +
+                "    const jobInfo = {\n" +
+                "        title,\n" +
+                "        salary,\n" +
+                "        company,\n" +
+                "        hrname,\n" +
+                "        href,\n" +
+                "    };\n" +
+                "    jobsArray.push(jobInfo);\n" +
+                "});" +
                 "return JSON.stringify(jobsArray);})();", value -> {
             try {
                 value=value.substring(1,value.length()-1).replaceAll("\\\\","");
@@ -117,6 +116,4 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
     }
-    }
-   // "[{\"title\":\"兼职初中作业班老师\",\"salary\":\"3500-4000元/月\",\"company\":\"思睿\",\"workplace\":"北京\"}"
-   // "[{\"title\":\"兼职初中作业班老师\",\"salary\":\"3500-4000元/月\",\"company\":\"思睿\",\"workplace\":\"北京\"},{\"title\":\"小学生作业托管老师\",\"salary\":\"5-8K\",\"company\":\"为文教育\",\"workplace\":\"北京\"}]"
+}
