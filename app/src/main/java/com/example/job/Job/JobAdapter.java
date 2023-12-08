@@ -32,6 +32,7 @@ import com.example.job.chat.Chat;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class JobAdapter extends ArrayAdapter<JobItem> {
     private Context context;
@@ -90,13 +91,11 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
                     notifyDataSetChanged();
                     Toast.makeText(context, "取消收藏成功", LENGTH_SHORT).show();
                     Module.getInstance().transmitfav(getItem(position));
-                    // TODO: 移除收藏夹
                 } else {
                     getItem(position).setFavor(true);
                     favor.setText("取消收藏");
                     notifyDataSetChanged();
                     Toast.makeText(context, "收藏成功", LENGTH_SHORT).show();
-                    // TODO: 加入收藏夹
                     Module.getInstance().transmitfav(getItem(position));
                 }
             }
@@ -112,9 +111,11 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
                 String time=(calendar.get(Calendar.HOUR_OF_DAY)<10?"0":"")+calendar.get(Calendar.HOUR_OF_DAY)+":"+
                         (calendar.get(Calendar.MINUTE)<10?"0":"")+calendar.get(Calendar.MINUTE)+ ":"+
                         (calendar.get(Calendar.SECOND)<10?"0":"")+calendar.get(Calendar.SECOND);
-                boolean succ = Module.getInstance().getUser().addChat(new Chat(getItem(position).getHrname(), "v50来面", time));
+                boolean succ = Module.getInstance().getUser().addChat(new Chat(getItem(position).getHrname(), textGenerator(), time));
                 if (!succ) {
                     Toast.makeText(getContext(), "已与HR联系", LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "已与HR联系，请查看通知", LENGTH_SHORT).show();
                 }
             }
         });
@@ -143,5 +144,20 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
             }
         }
         return convertView;
+    }
+
+    static String [] text = new String[] {
+            "您好，欢迎联系我们。请问有什么我可以帮您的吗？",
+            "你好，我是公司的HR。您申请的职位很有意思，我想了解更多您的背景和经验。",
+            "您好，我是HR，很高兴接到您的信息。请问您对我们公司的职位有什么疑问吗？",
+            "你好，感谢您联系我们，我是HR，期待与您分享更多关于我们公司的职位和文化。",
+            "你好，我是HR，很高兴你对我们公司的职位感兴趣。请问您现在有时间吗？我们可以电话或视频通话沟通一下。",
+            "我是HR，很乐意为您解答关于我们公司的任何问题。",
+            "您好，请问我能为您提供什么帮助？我是HR，负责筛选和安排面试的工作。",
+            "你好，非常感谢您对我们公司的职位表达兴趣。我是HR，我将会协助您完成后续的招聘流程。"
+    };
+
+    public String textGenerator() {
+        return text[new Random().nextInt(8)];
     }
 }
