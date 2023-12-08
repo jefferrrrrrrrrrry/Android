@@ -24,10 +24,6 @@
             android:name=".JobSearchService"
             android:enabled="true"
             android:exported="true"></service>
-
-        <activity
-            android:name=".WebViewActivity"
-            android:exported="false" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
@@ -42,7 +38,7 @@
             android:name=".Reminder.ReminderBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.example.custom.action" />
+                <action android:name="com.example.job.REMINDER_BROADCAST" />
             </intent-filter>
         </receiver>
 

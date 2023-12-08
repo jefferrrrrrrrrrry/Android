@@ -35,10 +35,10 @@ public class User {
         this.username = username;
         this.password = password;
 
-        chats.add(new Chat("老板1", "明天来面试", "10:05"));
-        chats.add(new Chat("老板2", "v50来面试", "10:10"));
-        chats.add(new Chat("老板3", "明天来面试", "10:05"));
-        chats.add(new Chat("老板4", "v50来面试", "10:10"));
+        //chats.add(new Chat("老板1", "明天来面试", "10:05"));
+        //chats.add(new Chat("老板2", "v50来面试", "10:10"));
+        //chats.add(new Chat("老板3", "明天来面试", "10:05"));
+        //chats.add(new Chat("老板4", "v50来面试", "10:10"));
     }
     public String getPassword(){
         return password;
