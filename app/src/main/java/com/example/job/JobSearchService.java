@@ -73,7 +73,6 @@ public class JobSearchService extends Service {
     }
 
     private void extractAndProcessData() {
-
         webView.evaluateJavascript("(function() { \n"+
                 "const jobElements = document.querySelectorAll('.item');\n"+
                 "const jobsArray = [];\n" +
