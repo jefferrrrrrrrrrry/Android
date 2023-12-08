@@ -15,7 +15,7 @@
         android:fontFamily="monospace"
         android:text="Salary"
         android:textColor="#DD0000"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -28,8 +28,9 @@
         android:layout_marginTop="40dp"
         android:text="JobName"
         android:textColor="#000000"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:maxLines="3"/>
 
     <TextView
         android:id="@+id/job_hrname"
@@ -41,7 +42,7 @@
         android:layout_marginTop="142dp"
         android:text="hrName"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <Button
@@ -75,8 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="123dp"
-        android:layout_marginEnd="152dp"
+        android:layout_marginTop="175dp"
+        android:layout_marginEnd="40dp"
         android:text="跳转到网页"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -90,6 +91,6 @@
         android:layout_marginTop="95dp"
         android:text="Address"
         android:textColor="#666666"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

@@ -109,11 +109,23 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
             @Override
             public void onClick(View view) {
                 String link = getItem(position).getLink();
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(link));
-                getContext().startActivity(intent);
+                if (link == null) {
+                    Toast.makeText(getContext(), "该网站未提供链接", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(link));
+                    getContext().startActivity(intent);
+                }
             }
         });
+        for (int i = 0; i < data.size(); ++i) {
+            if (data.get(i).isFull()) {
+                jobname.setTextColor(Color.parseColor("666666"));
+                address.setTextColor(Color.parseColor("666666"));
+                hrname.setTextColor(Color.parseColor("666666"));
+                salary.setTextColor(Color.parseColor("666666"));
+            }
+        }
         return convertView;
     }
 }

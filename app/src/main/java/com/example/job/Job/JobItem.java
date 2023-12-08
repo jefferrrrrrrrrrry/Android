@@ -13,8 +13,8 @@ public class JobItem {
     private String hrname;
     private String salary;
     private String link;
-
     private boolean favor;
+    private boolean isFull;
     private ArrayList<User> users = new ArrayList<>();
 
     public JobItem(String jobname, String address, String hrname, String salary, String link) {
@@ -85,6 +85,14 @@ public class JobItem {
     }
     public void addfav(User user){
         users.add(user);
+    }
+
+    public boolean isFull() {
+        return isFull;
+    }
+
+    public void setFull(boolean full) {
+        isFull = full;
     }
 
     @Override
