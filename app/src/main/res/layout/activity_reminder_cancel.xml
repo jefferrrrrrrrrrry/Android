@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ReminderCancelActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo"
+        android:scaleType="center" />
+
     <Button
         android:id="@+id/buttonCancelBack"
         android:layout_width="wrap_content"
