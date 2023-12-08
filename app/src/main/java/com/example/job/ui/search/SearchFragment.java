@@ -22,6 +22,9 @@ import com.example.job.Job.JobsAll;
 import com.example.job.JobSearchService;
 import com.example.job.R;
 import com.example.job.SearchService;
+import com.example.job.Web2Service;
+import com.example.job.Web3Service;
+import com.example.job.Web4Service;
 
 import java.util.ArrayList;
 
@@ -48,18 +51,20 @@ public class SearchFragment extends Fragment {
                 search_str = search_str.equals("") ? "java" : search_str;
                 Intent intent=new Intent(getActivity(), JobSearchService.class);
                 intent.putExtra("search_key", search_str);
-                getActivity().startService(intent);
-                Intent intent2 = new Intent(getActivity(), SearchService.class);
+
+//                Intent intent= new Intent(getActivity(), SearchService.class);
+//                intent.putExtra("search_key", search_str);
+//                intent.putExtra("mode", 1);
+                //getActivity().startService(intent);
+                Intent intent2 = new Intent(getActivity(), Web2Service.class);
                 intent2.putExtra("search_key", search_str);
-                intent2.putExtra("mode", 2);
-                getActivity().startService(intent2);
-                Intent intent3 = new Intent(getActivity(), SearchService.class);
+                Intent intent3 = new Intent(getActivity(), Web3Service.class);
                 intent3.putExtra("search_key", search_str);
-                intent3.putExtra("mode", 3);
-                getActivity().startService(intent3);
-                Intent intent4 = new Intent(getActivity(), SearchService.class);
+                Intent intent4 = new Intent(getActivity(), Web4Service.class);
                 intent4.putExtra("search_key", search_str);
-                intent4.putExtra("mode", 4);
+                getActivity().startService(intent);
+                getActivity().startService(intent2);
+                getActivity().startService(intent3);
                 getActivity().startService(intent4);
             }
         });
