@@ -149,7 +149,7 @@ public class SearchService extends Service {
 
                         JobAdapter jobAdapter = SearchFragment.getJobAdapter();
                         for (int i = 0; i < size; i++) {
-                            JobItem p = new JobItem(titles[i], comps[i], "未知",
+                            JobItem p = new JobItem(titles[i], comps[i], "面试官",
                                     salaries[i], url, "拉勾网");
                             jobAdapter.add(p);
                         }
@@ -197,7 +197,7 @@ public class SearchService extends Service {
 
                         JobAdapter jobAdapter = SearchFragment.getJobAdapter();
                         for (int i = 0; i < size; i++) {
-                            JobItem p = new JobItem(titles[i], comps[i], "未知",
+                            JobItem p = new JobItem(titles[i], comps[i], "面试官",
                                     salaries[i], url, "智联招聘");
                             jobAdapter.add(p);
                         }
@@ -247,7 +247,7 @@ public class SearchService extends Service {
 
                         JobAdapter jobAdapter = SearchFragment.getJobAdapter();
                         for (int i = 0; i < size; i++) {
-                            JobItem p = new JobItem(titles[i], comps[i], "未知",
+                            JobItem p = new JobItem(titles[i], comps[i], "面试官",
                                     salaries[i], "https://www.chinahr.com" + hreF[i], "中华英才网");
                             jobAdapter.add(p);
                         }
