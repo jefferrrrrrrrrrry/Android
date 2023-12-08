@@ -9,9 +9,19 @@ import android.webkit.WebViewClient;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.job.Job.JobAdapter;
+import com.example.job.Job.JobItem;
+import com.example.job.ui.search.SearchFragment;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
 
 public class WebViewActivity extends AppCompatActivity {
 
@@ -47,14 +57,13 @@ public class WebViewActivity extends AppCompatActivity {
                     hasPerformedSearch = true;
                     performSearch(key_word);
                     // Update the flag to ensure the search is not performed again
+                } else {
+                    hasGetInfo = true;
+                    getWebViewHtmlContent();
+                    // Now that the page has finished loading for the first time, perform the search
+
+
                 }
-//                }else {
-//                    getWebViewHtmlContent();
-//                    // Now that the page has finished loading for the first time, perform the search
-//                    hasGetInfo = true;
-//                    extractAndProcessData();
-//
-//                }
             }
         });
 
@@ -66,11 +75,58 @@ public class WebViewActivity extends AppCompatActivity {
         // 使用 evaluateJavascript 方法获取整个 HTML 内容
         webView.evaluateJavascript("(function() { return ('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'); })();",
                 new ValueCallback<String>() {
+                    private void gothrough(Elements e, String[] input) {
+                        int i = 0;
+                        for (Element ele : e) {
+                            input[i] = ele.text();
+                            i++;
+                        }
+                    }
                     @Override
                     public void onReceiveValue(String htmlContent) {
                         // 处理获取到的 HTML 内容
-                        if (htmlContent != null) {
-                            System.out.println("HTML Content: " + htmlContent);
+                        if (htmlContent != null && hasGetInfo) {
+                            String theString = htmlContent;
+                            theString = theString.replace("\\n", "\n");
+                            theString = theString.replace("\\u003C", "<");
+                            theString = theString.replace("\\\"", "\"");
+                            theString = theString.substring(1, theString.length()-1);
+                            Document document = Jsoup.parse(theString);
+                            Elements elements = document.getElementsByClass("item").select("a");
+                            int size = elements.size();
+                            String[] titles = new String[size];
+                            String[] salaries = new String[size];
+                            String[] comps = new String[size];
+                            String[] workplaces = new String[size];
+                            String[] hr = new String[size];
+                            Elements tmp = elements.select(".title-text");
+                            gothrough(tmp, titles);
+                            tmp = elements.select(".salary");
+                            gothrough(tmp, salaries);
+                            tmp = elements.select(".company");
+                            gothrough(tmp, comps);
+                            tmp = elements.select(".workplace");
+                            gothrough(tmp, workplaces);
+                            tmp = elements.select(".user-wrap").select(".name");
+                            gothrough(tmp, hr);
+                            ArrayList<String> href = new ArrayList<>();
+                            elements.forEach((e) -> {
+                                href.add(e.attr("href"));
+                            });
+                            String[] hreF = href.toArray(new String[0]);
+//                            System.out.println(elements.first().attr("href"));
+//                            System.out.println(elements.select(".title-text").text());
+//                            System.out.println(elements.select(".salary").text());
+//                            System.out.println(elements.select(".company").text());
+//                            System.out.println(elements.select(".workplace").text());
+
+                            JobAdapter jobAdapter = SearchFragment.getJobAdapter();
+                            for (int i = 0; i < size; i++) {
+                                JobItem p = new JobItem(titles[i], workplaces[i] + " " + comps[i], hr[i],
+                                        salaries[i], "https://www.zhipin.com/beijing/" + hreF[i]);
+                                jobAdapter.add(p);
+                            }
+                            jobAdapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -84,54 +140,5 @@ public class WebViewActivity extends AppCompatActivity {
         String clickSearchButtonScript = "document.querySelector('.btn.btn-search').click();";
         webView.evaluateJavascript(clickSearchButtonScript, null);
     }
-    private void extractAndProcessData() {
-        // 获取所有 job-name 元素的文本内容
-        StringBuilder javaCode = new StringBuilder();
 
-        javaCode.append("(function{List<Map<String, String>> jobDataArray = new ArrayList<>();\n");
-        javaCode.append("Elements liElements = document.select(\"li\");\n");
-        javaCode.append("for (Element liElement : liElements) {\n");
-        javaCode.append("    // 获取职位信息\n");
-        javaCode.append("    Element nameElement = liElement.selectFirst(\".name\");\n");
-        javaCode.append("    String jobTitle = nameElement != null ? nameElement.text().trim() : \"N/A\";\n");
-        javaCode.append("\n");
-        javaCode.append("    // 获取薪水信息\n");
-        javaCode.append("    Element redElement = liElement.selectFirst(\".red\");\n");
-        javaCode.append("    String salary = redElement != null ? redElement.text().trim() : \"N/A\";\n");
-        javaCode.append("\n");
-        javaCode.append("    // 获取岗位职责信息\n");
-        javaCode.append("    Element jobDemandElement = liElement.selectFirst(\".job-demand\");\n");
-        javaCode.append("    String jobDescription = jobDemandElement != null ? jobDemandElement.text().trim() : \"N/A\";\n");
-        javaCode.append("\n");
-        javaCode.append("    // 获取公司名称\n");
-        javaCode.append("    Element companyNameElement = liElement.selectFirst(\".info-company .name\");\n");
-        javaCode.append("    String companyName = companyNameElement != null ? companyNameElement.text().trim() : \"N/A\";\n");
-        javaCode.append("\n");
-        javaCode.append("    // 检查是否有 \"N/A\" 的信息，如果没有，则添加到列表\n");
-        javaCode.append("    if (!\"N/A\".equals(jobTitle) && !\"N/A\".equals(salary) && !\"N/A\".equals(jobDescription) && !\"N/A\".equals(companyName)) {\n");
-        javaCode.append("        Map<String, String> jobData = new HashMap<>();\n");
-        javaCode.append("        jobData.put(\"jobTitle\", jobTitle);\n");
-        javaCode.append("        jobData.put(\"salary\", salary);\n");
-        javaCode.append("        jobData.put(\"jobDescription\", jobDescription);\n");
-        javaCode.append("        jobData.put(\"companyName\", companyName);\n");
-        javaCode.append("        jobDataArray.add(jobData);\n");
-        javaCode.append("    }\n");
-        javaCode.append("}\n");
-        javaCode.append("return JSON.stringify(jobDataArray);})();");
-
-        webView.evaluateJavascript(javaCode.toString(), value -> {
-            // 处理 JavaScript 返回的值
-            // 在这里，value 将包含 JavaScript 代码的返回值
-
-            System.out.println(value);
-
-            // 如果返回的是 JSON 字符串，您可以使用 JSON 解析库进行解析
-//            try {
-//                jsonArray = new JSONArray(value);
-//                // 现在 jsonArray 中包含了 JavaScript 代码返回的信息
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-        });
-    }
     }

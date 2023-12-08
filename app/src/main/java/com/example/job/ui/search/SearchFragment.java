@@ -35,6 +35,7 @@ public class SearchFragment extends Fragment {
     private SearchViewModel mViewModel;
     private ListView listView;
     private EditText text;
+    private static JobAdapter jobAdapter;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -50,6 +51,8 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         text=view.findViewById(R.id.search_box);
+        ArrayList<JobItem> jobItems = JobsAll.getAll();
+        jobAdapter = new JobAdapter(getContext(), R.layout.job_item, jobItems);
         view.findViewById(R.id.search_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,9 +63,8 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        ArrayList<JobItem> jobItems = JobsAll.getAll();
-        JobAdapter jobAdapter = new JobAdapter(getContext(), R.layout.job_item, jobItems);
-        //jobItems.add(new JobItem("Smoking", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
+
+        jobItems.add(new JobItem("Smoking", "Li Tang", "Ding Zhen", "5000/month", "www.baidu.com"));
         // change
         listView = view.findViewById(R.id.result_list);
         listView.setAdapter(jobAdapter);
@@ -74,4 +76,7 @@ public class SearchFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
+    public static JobAdapter getJobAdapter() {
+        return jobAdapter;
+    }
 }
