@@ -93,7 +93,6 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO 与boss联系
                 Module.getInstance().getUser().getChats().add(new Chat(getItem(position).getHrname(), "v50来面", "12345"));
             }
         });
