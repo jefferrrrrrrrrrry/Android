@@ -13,16 +13,18 @@ public class JobItem {
     private String hrname;
     private String salary;
     private String link;
+    private String origin;
     private boolean favor;
     private boolean isFull;
     private ArrayList<User> users = new ArrayList<>();
 
-    public JobItem(String jobname, String address, String hrname, String salary, String link) {
+    public JobItem(String jobname, String address, String hrname, String salary, String link, String origin) {
         this.jobname = jobname;
         this.address = address;
         this.hrname = hrname;
         this.salary = salary;
         this.link = link;
+        this.origin = origin;
         this.favor = false;
     }
 
@@ -93,6 +95,14 @@ public class JobItem {
 
     public void setFull(boolean full) {
         isFull = full;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     @Override

@@ -109,7 +109,7 @@ public class JobSearchService extends Service {
                     String company = jsonObject.getString("company");
                     String hrname = jsonObject.getString("hrname");
                     String href = jsonObject.getString("href");
-                    JobsAll.getAll().add(new JobItem(title,company,hrname,salary,"https://www.zhipin.com"+href));
+                    JobsAll.getAll().add(new JobItem(title,company,hrname,salary,"https://www.zhipin.com"+href, "origin"));// TODO origin
                 }
             } catch (JSONException e) {
                 throw new RuntimeException(e);

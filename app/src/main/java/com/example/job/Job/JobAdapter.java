@@ -60,6 +60,7 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
         TextView address = convertView.findViewById(R.id.job_address);
         TextView hrname = convertView.findViewById(R.id.job_hrname);
         TextView salary = convertView.findViewById(R.id.job_salary);
+        TextView origin = convertView.findViewById(R.id.job_origin);
 
         String job = null;
         if (Objects.requireNonNull(getItem(position)).getJobname().length() > 12) {
@@ -71,6 +72,8 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
         address.setText(Objects.requireNonNull(getItem(position)).getAddress());
         hrname.setText(Objects.requireNonNull(getItem(position)).getHrname());
         salary.setText(Objects.requireNonNull(getItem(position)).getSalary());
+        String originvalue = "来源：" + Objects.requireNonNull(getItem(position)).getOrigin();
+        origin.setText(originvalue);
 
         favor = convertView.findViewById(R.id.favor);
         if (getItem(position).isFavor()) {
@@ -136,6 +139,7 @@ public class JobAdapter extends ArrayAdapter<JobItem> {
                 address.setTextColor(Color.parseColor("666666"));
                 hrname.setTextColor(Color.parseColor("666666"));
                 salary.setTextColor(Color.parseColor("666666"));
+                origin.setTextColor(Color.parseColor("666666"));
             }
         }
         return convertView;
