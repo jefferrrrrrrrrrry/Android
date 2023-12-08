@@ -100,10 +100,16 @@ public class SearchService extends Service {
                             tmp = elements.select(".user-wrap").select(".name");
                             gothrough(tmp, hr);
                             ArrayList<String> href = new ArrayList<>();
+                            ArrayList<String> ka = new ArrayList<>();
+                            ArrayList<String> lid = new ArrayList<>();
                             elements.forEach((e) -> {
                                 href.add(e.attr("href"));
+                                ka.add(e.attr("ka"));
+                                lid.add(e.attr("data-lid"));
                             });
                             String[] hreF = href.toArray(new String[0]);
+                            String[] KA = ka.toArray(new String[0]);
+                            String[] LID = lid.toArray(new String[0]);
 //                            System.out.println(elements.first().attr("href"));
 //                            System.out.println(elements.select(".title-text").text());
 //                            System.out.println(elements.select(".salary").text());
@@ -113,7 +119,7 @@ public class SearchService extends Service {
                             JobAdapter jobAdapter = SearchFragment.getJobAdapter();
                             for (int i = 0; i < size; i++) {
                                 JobItem p = new JobItem(titles[i], workplaces[i] + " " + comps[i], hr[i],
-                                        salaries[i], "https://www.zhipin.com/beijing" + hreF[i]);
+                                        salaries[i], "https://www.zhipin.com" + hreF[i] + "?ka=" + KA[i] + "_blank&lid=" + LID[i]);
                                 jobAdapter.add(p);
                             }
                             jobAdapter.notifyDataSetChanged();

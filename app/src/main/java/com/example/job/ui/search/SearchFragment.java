@@ -59,7 +59,7 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 //getActivity().finish();
                 Intent intent= new Intent(getActivity(), SearchService.class);
-                intent.putExtra("search_key",text.getText().toString());
+                intent.putExtra("search_key",text.getText().toString().replace("\n",""));
                 getActivity().startService(intent);
             }
         });
