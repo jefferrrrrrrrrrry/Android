@@ -22,9 +22,6 @@ import com.example.job.Job.JobsAll;
 import com.example.job.JobSearchService;
 import com.example.job.R;
 import com.example.job.SearchService;
-import com.example.job.Web2Service;
-import com.example.job.Web3Service;
-import com.example.job.Web4Service;
 
 import java.util.ArrayList;
 
@@ -38,7 +35,7 @@ public class SearchFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        text = view.findViewById(R.id.search_box);
+        text=view.findViewById(R.id.search_box);
         ArrayList<JobItem> jobItems = JobsAll.getAll();
         jobAdapter = new JobAdapter(getContext(), R.layout.job_item, jobItems);
         registerBroadcastReceiver();
@@ -47,21 +44,19 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 //getActivity().finish();
                 jobAdapter.clear();
-                String search_str = text.getText().toString().replace("\n", "");
+                String search_str = text.getText().toString().replace("\n","");
                 search_str = search_str.equals("") ? "java" : search_str;
-                Intent intent = new Intent(getActivity(), JobSearchService.class);
+                Intent intent=new Intent(getActivity(), JobSearchService.class);
                 intent.putExtra("search_key", search_str);
-
-//                Intent intent= new Intent(getActivity(), SearchService.class);
-//                intent.putExtra("search_key", search_str);
-//                intent.putExtra("mode", 1);
-                //getActivity().startService(intent);
-                Intent intent2 = new Intent(getActivity(), Web2Service.class);
+                Intent intent2 = new Intent(getActivity(), SearchService.class);
                 intent2.putExtra("search_key", search_str);
-                Intent intent3 = new Intent(getActivity(), Web3Service.class);
+                intent2.putExtra("mode", 2);
+                Intent intent3 = new Intent(getActivity(), SearchService.class);
                 intent3.putExtra("search_key", search_str);
-                Intent intent4 = new Intent(getActivity(), Web4Service.class);
+                intent3.putExtra("mode", 3);
+                Intent intent4 = new Intent(getActivity(), SearchService.class);
                 intent4.putExtra("search_key", search_str);
+                intent4.putExtra("mode", 4);
                 getActivity().startService(intent);
                 getActivity().startService(intent2);
                 getActivity().startService(intent3);
@@ -72,14 +67,12 @@ public class SearchFragment extends Fragment {
         listView = view.findViewById(R.id.result_list);
         listView.setAdapter(jobAdapter);
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
-
     private void registerBroadcastReceiver() {
         // 创建广播接收器
         broadcastReceiver = new BroadcastReceiver() {
@@ -107,7 +100,6 @@ public class SearchFragment extends Fragment {
             getActivity().unregisterReceiver(broadcastReceiver);
         }
     }
-
     public static JobAdapter getJobAdapter() {
         return jobAdapter;
     }
